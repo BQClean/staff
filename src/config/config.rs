@@ -1,11 +1,9 @@
 
-use infrastructure::config::trait_config as tcfg;
-use crate::infrastructure;
+use crate::infrastructure::traits::trait_config as cfg;
 
 #[derive(Debug)]
 pub struct Config {
     database_host: String,
-    database_port: String,
     database_username: String,
     database_password: String,
     database_name: String,
@@ -16,7 +14,6 @@ impl Default for Config{
     fn default() -> Self {
         return Config{
             database_host: "localhost".to_string(),
-            database_port: "5432".to_string(),
             database_username: "postgres".to_string(),
             database_password: "root".to_string(),
             database_name: "postgres".to_string(),
@@ -25,7 +22,7 @@ impl Default for Config{
     }
 }
 
-impl tcfg::TConfig for Config{
+impl cfg::TConfig for Config{
     fn get_dbconnection(&self) -> String {
         return  format!("postgres://{}:{}@{}/{}?currentSchema={}",
                         self.database_username,

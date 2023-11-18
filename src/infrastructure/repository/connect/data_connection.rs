@@ -1,13 +1,15 @@
-use sea_orm::{DatabaseConnection, DbErr};
+use async_trait::async_trait;
+use sea_orm::*;
 use crate::infrastructure::traits::trait_connection::TConnection;
 
-pub struct Connection{
-    connection_url:*String
-}
-impl  TConnection for Connection{
-    async fn connect(&mut self,conn_url: &String) -> Result<DatabaseConnection, DbErr> {
-        self.connection_url = conn_url;
+pub struct Connection();
 
-        return Ok(None)
+#[async_trait]
+impl<'a> TConnection<'a> for Connection {
+    async fn connect(&'a self, conn_url: &str) -> Result<DatabaseConnection, DbErr> {
+        let mut opts = ConnectOptions::new(conn_url);
+        opts.sqlx_logging(false);
+
+        return Database::connect(opts).await;
     }
 }

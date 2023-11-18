@@ -1,5 +1,4 @@
 use sea_orm_migration::prelude::*;
-use crate::migrator::BinOper::Add;
 use crate::migrator::m20220101_000001_staff_table::Staff;
 
 

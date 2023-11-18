@@ -1,5 +1,7 @@
+use async_trait::async_trait;
 use sea_orm::{DatabaseConnection, DbErr};
 
-pub trait TConnection{
-    async fn connect(&mut self,conn_url :&String)->Result<DatabaseConnection,DbErr>;
+#[async_trait]
+pub trait TConnection<'a>{
+    async fn connect(&'a self, conn_url :&str) ->Result<DatabaseConnection, DbErr>;
 }
