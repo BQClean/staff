@@ -4,7 +4,7 @@ mod config;
 mod domain;
 mod entities;
 mod infrastructure;
-mod services;
+mod migrator;
 
 fn main() {
     println!("Hello, world!");
