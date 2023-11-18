@@ -36,7 +36,7 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum Address {
+pub enum Address {
     Table,
     Id,
     Street,

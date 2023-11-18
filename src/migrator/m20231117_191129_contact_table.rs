@@ -1,4 +1,5 @@
 use sea_orm_migration::prelude::*;
+use crate::migrator::m20231117_191218_contact_type_table::ContactType;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -20,6 +21,11 @@ impl MigrationTrait for Migration {
                     )
                     .col(ColumnDef::new(Contact::ContactTypeID).uuid().not_null())
                     .col(ColumnDef::new(Contact::ContactValue).string().not_null())
+                    .foreign_key(
+                        ForeignKey::create().name("fk-contact-type").from(Contact::Table,
+                             Contact::ContactTypeID)
+                            .to(ContactType::Table,ContactType::Id)
+                    )
                     .to_owned(),
             )
             .await
@@ -32,7 +38,7 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum Contact {
+pub enum Contact {
     Table,
     Id,
     ContactTypeID,

@@ -38,7 +38,7 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum Staff {
+pub enum Staff {
     Table,
     Id,
     FirstName,

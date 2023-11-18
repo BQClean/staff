@@ -31,7 +31,7 @@ impl MigrationTrait for Migration {
     }
 }
 #[derive(DeriveIden)]
-enum ContactType {
+pub enum ContactType {
     Table,
     Id,
     Name,
