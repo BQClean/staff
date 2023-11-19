@@ -1,4 +1,6 @@
 
 pub enum  Commands {
-    CreateStaff(CreateStaffCommand)
+    CreateStaff(CreateStaffCommand),
+    UpdateStaff(UpdateStaffCommand),
+    InactiveStaff(InactivateStaffCommand)
 }
