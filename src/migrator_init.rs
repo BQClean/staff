@@ -1,4 +1,4 @@
-
+use sea_orm_migration::MigratorTrait;
 use crate::config::config::Config;
 use crate::infrastructure::traits::trait_config::TConfig;
 use crate::infrastructure::repository::connect::data_connection::DBConnection;
