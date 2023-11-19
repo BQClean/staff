@@ -1,22 +1,16 @@
-#![allow(unused_variables)]
-#![allow(dead_code)]
-#![allow(unused_imports)]
 
-use sea_orm_migration::MigratorTrait;
 use crate::config::config::Config;
 use crate::infrastructure::traits::trait_config::TConfig;
 use crate::infrastructure::repository::connect::data_connection::DBConnection;
 use crate::infrastructure::traits::trait_connection::TConnection;
+use crate::migrator::Migrator;
 
-mod adapters;
-mod application;
+
 mod config;
-mod domain;
-mod entities;
 mod infrastructure;
-
+mod migrator;
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main()-> Result<(), Box<dyn std::error::Error>>{
     let cfg = Config::default();
     let connection_url = cfg.get_dbconnection();
 
@@ -25,5 +19,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Ok(db)=>db,
         Err(err)=>panic!("{}",err)
     };
-   Ok(())
+
+    match Migrator::up(&db, None).await {
+        Err(err) => panic!("{}", err),
+        Ok(_) => (),
+    };
+
+    Ok(())
 }

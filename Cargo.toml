@@ -41,3 +41,7 @@ features = [
     # "runtime-tokio-rustls",  # `ASYNC_RUNTIME` feature
     # "sqlx-postgres",         # `DATABASE_DRIVER` feature
 ]
+
+[[bin]]
+name = "migration"
+path = "src/migrator_init.rs"
