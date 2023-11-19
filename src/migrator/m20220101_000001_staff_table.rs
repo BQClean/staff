@@ -15,7 +15,6 @@ impl MigrationTrait for Migration {
                         ColumnDef::new(Staff::Id)
                             .uuid()
                             .not_null()
-                            .generated("uuid-ossp",true)
                             .primary_key(),
                     )
                     .col(ColumnDef::new(Staff::FirstName).string().not_null())

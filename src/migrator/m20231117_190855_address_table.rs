@@ -17,7 +17,6 @@ impl MigrationTrait for Migration {
                         ColumnDef::new(Address::Id)
                             .integer()
                             .not_null()
-                            .generated("uuid-ossp",true)
                             .primary_key(),
                     )
                     .col(ColumnDef::new(Address::Street).string().not_null())

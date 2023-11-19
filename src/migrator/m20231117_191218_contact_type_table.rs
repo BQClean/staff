@@ -15,7 +15,6 @@ impl MigrationTrait for Migration {
                         ColumnDef::new(ContactType::Id)
                             .integer()
                             .not_null()
-                            .generated("uuid-ossp",true)
                             .primary_key(),
                     )
                     .col(ColumnDef::new(ContactType::Name).string().not_null())
