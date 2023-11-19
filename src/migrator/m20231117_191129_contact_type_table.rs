@@ -13,7 +13,7 @@ impl MigrationTrait for Migration {
                     .if_not_exists()
                     .col(
                         ColumnDef::new(ContactType::Id)
-                            .integer()
+                            .uuid()
                             .not_null()
                             .primary_key(),
                     )

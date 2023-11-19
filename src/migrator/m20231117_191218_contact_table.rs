@@ -1,5 +1,5 @@
 use sea_orm_migration::prelude::*;
-use crate::migrator::m20231117_191218_contact_type_table::ContactType;
+use crate::migrator::m20231117_191129_contact_type_table::ContactType;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;

@@ -3,8 +3,9 @@ pub use sea_orm_migration::prelude::*;
 
 mod m20220101_000001_staff_table;
 mod m20231117_190855_address_table;
-mod m20231117_191129_contact_table;
-mod m20231117_191218_contact_type_table;
+mod m20231117_191218_contact_table;
+mod m20231117_191129_contact_type_table;
+mod m20231119_120140_contact_type_seed;
 
 pub struct Migrator;
 
@@ -14,8 +15,9 @@ impl MigratorTrait for Migrator {
         vec![
             Box::new(m20220101_000001_staff_table::Migration),
             Box::new(m20231117_190855_address_table::Migration),
-            Box::new(m20231117_191129_contact_table::Migration),
-            Box::new(m20231117_191218_contact_type_table::Migration),
+            Box::new(m20231117_191218_contact_table::Migration),
+            Box::new(m20231117_191129_contact_type_table::Migration),
+            Box::new(m20231119_120140_contact_type_seed::Migration),
         ]
     }
 }

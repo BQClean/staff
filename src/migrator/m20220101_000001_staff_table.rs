@@ -25,7 +25,7 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Staff::VehicleReg).string().null())
                     .col(ColumnDef::new(Staff::DriverLC).string().null())
                     .col(ColumnDef::new(Staff::INContract).boolean().not_null())
-                    .col(ColumnDef::new(Staff::CreatedAt).timestamp_with_time_zone().default("CURRENT_TIMESTAMP").not_null())
+                    .col(ColumnDef::new(Staff::CreatedAt).timestamp_with_time_zone().default(chrono::Utc::now()).not_null())
                     .col(ColumnDef::new(Staff::UpdatedAt).timestamp_with_time_zone().null())
                     .to_owned(),
             )
