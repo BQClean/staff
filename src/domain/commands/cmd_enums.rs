@@ -1,8 +1,23 @@
 
 pub enum  Commands {
-    CreateStaff(CreateStaffCommand),
-    UpdateStaff(UpdateStaffCommand),
-    InactiveStaff(InactivateStaffCommand),
-    CreateAddress(CreateAddressCommand),
-    UpdateAddress(UpdateAddressCommand)
+    CreateStaff{
+        id:String,
+        data:Staff
+    },
+    UpdateStaff{
+        id:String,
+        data:Staff
+    },
+    InactiveStaff{
+        id:String,
+        data:StaffActive
+    },
+    CreateAddress{
+        id:String,
+        data:Address
+    },
+    UpdateAddress{
+        id:String,
+        data:Address
+    }
 }
