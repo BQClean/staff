@@ -1,6 +1,6 @@
-
+#[derive(Deserialize,Copy, Clone)]
 pub struct  Address{
-    id:uuid::Uuid,
+    id:String,
     street:String,
     state:String,
     post_code:String,

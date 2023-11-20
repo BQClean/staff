@@ -17,7 +17,6 @@ prost-types = "0.12.1"
 serde = {version = "1.0.192",features = ["derive"]}
 serde_json = "1.0.108"
 erased-serde = "0.3.31"
-
 sea-orm = {version = "0.12.6",features = ["sqlx-postgres","runtime-tokio-native-tls","macros"]}
 chrono = "0.4.31"
 rdkafka = {version = "0.36.0",features = ["ssl","default"]}
@@ -25,9 +24,16 @@ grade = "0.3.0"
 config="0.13.3"
 async-trait ="0.1.74"
 uuid = { version = "1.5.0", features = ["v4"] }
+riker = "0.4.2"
+riker-default = "0.2.4"
+riker-cqrs = "0.2.3"
+
+
 
 [build-dependencies]
 tonic-build = "0.10.2"
+
+
 
 [package.metadata.profile.dev]
 tonic = {path= "./proto"}
@@ -41,6 +47,7 @@ features = [
     # "runtime-tokio-rustls",  # `ASYNC_RUNTIME` feature
     # "sqlx-postgres",         # `DATABASE_DRIVER` feature
 ]
+
 
 [[bin]]
 name = "migration"
