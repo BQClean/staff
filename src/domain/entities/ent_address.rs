@@ -1,5 +1,7 @@
-#[derive(Deserialize,Clone)]
-pub struct  Address{
+use serde::Serialize;
+
+#[derive(Deserialize,Serialize,Clone)]
+pub struct  EntityAddress{
     id:String,
     street:String,
     state:String,

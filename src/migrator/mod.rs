@@ -13,11 +13,11 @@ pub struct Migrator;
 impl MigratorTrait for Migrator {
     fn migrations() -> Vec<Box<dyn MigrationTrait>> {
         vec![
+            Box::new(m20231117_191129_contact_type_table::Migration),
+            Box::new(m20231119_120140_contact_type_seed::Migration),
             Box::new(m20220101_000001_staff_table::Migration),
             Box::new(m20231117_190855_address_table::Migration),
             Box::new(m20231117_191218_contact_table::Migration),
-            Box::new(m20231117_191129_contact_type_table::Migration),
-            Box::new(m20231119_120140_contact_type_seed::Migration),
         ]
     }
 }

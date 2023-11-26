@@ -1,4 +1,4 @@
-#[derive(Deserialize,Copy, Clone)]
+#[derive(Deserialize,Clone)]
 pub struct Staff {
     id: String,
     first_name:String,
@@ -8,7 +8,7 @@ pub struct Staff {
     in_contract:bool
 }
 
-#[derive(Deserialize,Copy, Clone)]
+#[derive(Deserialize,Clone)]
 pub struct  StaffActive{
     id: String,
     active:bool

@@ -1,7 +1,7 @@
 use serde::Deserialize;
 
-#[derive(Deserialize,Clone)]
-pub struct Contract{
+#[derive(Deserialize,Serialize,Clone)]
+pub struct EntityContract{
     id:String,
     contact_type_id:String,
     contact_value:String
