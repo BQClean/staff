@@ -4,83 +4,94 @@ use chrono::{DateTime, NaiveDateTime, Utc};
 use serde::Serialize;
 use crate::helpers as hp;
 
-#[derive(Serialize,Deserialize,Default)]
-pub struct Command<T>{
-    id:String,
-    data:Option<T>,
-    correlation_id: Option<String>,
-    recv_timestamp: DateTime<Utc>,
+#[derive(Serialize,Deserialize)]
+pub enum CommandsStaff {
+    CreateStaff{
+        id:String,
+        recv_timestamp: DateTime<Utc>,
+        data:Staff
+    },
+    UpdateStaff{
+        id:String,
+        recv_timestamp: DateTime<Utc>,
+        data:Staff
+    },
+    InactiveStaff{
+        id:String,
+        recv_timestamp: DateTime<Utc>,
+        data:StaffActive
+    },
+    CreateAddress{
+        id:String,
+        recv_timestamp: DateTime<Utc>,
+        data:Address
+    },
+    UpdateAddress{
+        id:String,
+        recv_timestamp: DateTime<Utc>,
+        data:Address
+    },
+    CreateContact{
+        id:String,
+        recv_timestamp: DateTime<Utc>,
+        data:Contact
+    },
+    UpdateContact{
+        id:String,
+        recv_timestamp: DateTime<Utc>,
+        data:Contact
+    }
 }
 
-pub enum  Commands {
-    CreateStaff(Command<Staff>),
-    UpdateStaff(Command<Staff>),
-    InactiveStaff(Command<StaffActive>),
-    CreateAddress(Command<Address>),
-    UpdateAddress(Command<Address>),
-    CreateContact(Command<Contract>),
-    UpdateContact(Command<Contract>)
-}
-
-impl Commands{
-    pub fn  create_staff(staff:Staff,coreid: Option<String>)-> Commands{
-        return Commands::CreateStaff(Command{
+impl CommandsStaff {
+    pub fn  create_staff(staff:Staff)-> CommandsStaff {
+        return CommandsStaff::CreateStaff{
             id:CMD_CREATE_STAFF.to_string(),
-            data:Some(staff),
-            correlation_id:coreid,
-            recv_timestamp:chrono::offset::Utc::now()
-        });
-
+            recv_timestamp:chrono::offset::Utc::now(),
+            data:staff
+        };
     }
-    pub fn  update_staff(staff:Staff,co_relation_id: Option<String>)-> Commands{
-        return Commands::UpdateStaff(Command{
+    pub fn  update_staff(staff:Staff)-> CommandsStaff {
+        return CommandsStaff::UpdateStaff{
             id:CMD_UPDATE_STAFF.to_string(),
-            data:Some(staff),
-            correlation_id:co_relation_id,
+            data:staff,
             recv_timestamp:chrono::offset::Utc::now()
-        })
+        }
     }
-    pub fn  inactivate_staff(staff:StaffActive,coreid: Option<String>)-> Commands{
-        return Commands::InactiveStaff(Command{
+    pub fn  inactivate_staff(staff:StaffActive)-> CommandsStaff {
+        return CommandsStaff::InactiveStaff{
             id:CMD_ACTIVE_STAFF.to_string(),
-            data:Some(staff),
-            correlation_id:coreid,
+            data:staff,
             recv_timestamp:chrono::offset::Utc::now()
 
-        })
+        }
     }
-    pub fn  create_address(address:Address,coreid: Option<String>)-> Commands{
-        return Commands::CreateAddress(Command{
+    pub fn  create_address(address:Address)-> CommandsStaff {
+        return CommandsStaff::CreateAddress{
             id:CMD_CREATE_ADDRESS.to_string(),
-            data:Some(address),
-            correlation_id:coreid,
+            data:address,
             recv_timestamp:chrono::offset::Utc::now()
-        })
+        }
     }
-    pub fn  update_address(address:Address,coreid: Option<String>)-> Commands{
-        return Commands::UpdateAddress(Command{
+    pub fn  update_address(address:Address)-> CommandsStaff {
+        return CommandsStaff::UpdateAddress{
             id:CMD_UPDATE_ADDRESS.to_string(),
-            data:Some(address),
-            correlation_id:coreid,
+            data:address,
             recv_timestamp:chrono::offset::Utc::now()
-        })
+        }
     }
-
-    pub fn  create_contact(contract: Contract,coreid: Option<String>)-> Commands{
-        return Commands::CreateContact(Command{
+    pub fn  create_contact(contract: Contact)-> CommandsStaff {
+        return CommandsStaff::CreateContact{
             id:CMD_CREATE_CONTACT.to_string(),
-            data:Some(contract),
-            correlation_id:coreid,
+            data:contract,
             recv_timestamp:chrono::offset::Utc::now()
-        })
+        }
     }
-
-    pub fn  update_contact(contract: Contract,coreid: Option<String>)-> Commands{
-        return Commands::UpdateContact(Command{
+    pub fn  update_contact(contact: Contact)-> CommandsStaff {
+        return CommandsStaff::UpdateContact{
             id:CMD_UPDATE_CONTACT.to_string(),
-            data:Some(contract),
-            correlation_id:coreid,
+            data:contact,
             recv_timestamp:chrono::offset::Utc::now()
-        })
+        }
     }
 }
