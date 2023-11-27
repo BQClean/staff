@@ -1,6 +1,6 @@
 use async_trait::async_trait;
 use sea_orm::*;
-use crate::infrastructure::traits::trait_connection::TConnection;
+use crate::traits::trait_connection::TConnection;
 
 #[derive(Default)]
 pub struct DBConnection();

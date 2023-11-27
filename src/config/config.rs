@@ -1,5 +1,5 @@
 
-use crate::infrastructure::traits::trait_config as cfg;
+use crate::traits::trait_config as cfg;
 
 #[derive(Debug)]
 pub struct Config {
