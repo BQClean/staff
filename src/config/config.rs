@@ -1,6 +1,4 @@
-
-use crate::traits::trait_config as cfg;
-
+use crate::config::trait_config::{IConfig};
 #[derive(Debug)]
 pub struct Config {
     database_host: String,
@@ -26,8 +24,8 @@ impl Default for Config{
     }
 }
 
-impl cfg::TConfig for Config{
-    fn get_dbconnection(&self) -> String {
+impl IConfig for Config{
+     fn get_dbconnection(&self) -> String {
         return  format!("postgres://{}:{}@{}/{}?currentSchema={}",
                         self.database_username,
                         self.database_password,

@@ -1,28 +1,28 @@
 
-#[derive(Deserialize,Serialize, Clone,PartialEq)]
-pub struct Staff {
-    id: String,
-    first_name:String,
-    last_name:String,
-    vehicle_reg:String,
-    driver_license:String,
-    in_contract:bool,
-    active:bool,
-    address:Vec<Contact>,
-    contacts:Vec<Address>
+#[derive(Deserialize,Serialize, Clone,PartialEq,Debug)]
+pub struct EventStaff {
+    pub id: String,
+    pub first_name:String,
+    pub last_name:String,
+    pub vehicle_reg:String,
+    pub driver_license:String,
+    pub in_contract:bool,
+    pub active:bool,
+    pub address:Vec<EventContact>,
+    pub contacts:Vec<EventAddress>
 }
-#[derive(Deserialize,Serialize, Clone,PartialEq)]
-pub struct Contact{
-    id:String,
-    contact_type_id:String,
-    contact_value:String
+#[derive(Deserialize,Serialize, Clone,PartialEq,Debug)]
+pub struct EventContact{
+    pub id:String,
+    pub contact_type_id:String,
+    pub contact_value:String
 }
-#[derive(Deserialize,Serialize, Clone,PartialEq)]
-pub struct  Address{
-    id:String,
-    street:String,
-    state:String,
-    post_code:String,
-    country:String,
-    staff_id:String
+#[derive(Deserialize,Serialize, Clone,PartialEq,Debug)]
+pub struct  EventAddress{
+    pub id:String,
+    pub street:String,
+    pub state:String,
+    pub post_code:String,
+    pub country:String,
+    pub staff_id:String
 }

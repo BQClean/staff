@@ -1,8 +1,8 @@
 use serde::Deserialize;
 
-#[derive(Deserialize,Clone)]
+#[derive(Deserialize,Serialize,Clone)]
 pub struct Contact{
-    id:String,
-    contact_type_id:String,
-    contact_value:String
+    pub id:String,
+    pub contact_type_id:String,
+    pub contact_value:String
 }

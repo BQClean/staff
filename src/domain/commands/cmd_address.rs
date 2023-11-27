@@ -1,9 +1,9 @@
-#[derive(Deserialize,Clone)]
+#[derive(Deserialize,Serialize,Clone)]
 pub struct  Address{
-    id:String,
-    street:String,
-    state:String,
-    post_code:String,
-    country:String,
-    staff_id:String
+   pub id:String,
+   pub street:String,
+   pub  state:String,
+   pub post_code:String,
+   pub country:String,
+   pub staff_id:String
 }

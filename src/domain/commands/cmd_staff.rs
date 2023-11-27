@@ -1,15 +1,15 @@
-#[derive(Deserialize,Clone)]
-pub struct Staff {
-    id: String,
-    first_name:String,
-    last_name:String,
-    vehicle_reg:String,
-    driver_license:String,
-    in_contract:bool
+#[derive(Deserialize,Serialize,Clone)]
+pub struct Staff{
+   pub id: String,
+   pub first_name:String,
+   pub last_name:String,
+   pub vehicle_reg:String,
+   pub driver_license:String,
+   pub in_contract:bool
 }
 
-#[derive(Deserialize,Clone)]
+#[derive(Deserialize,Serialize,Clone)]
 pub struct  StaffActive{
-    id: String,
-    active:bool
+   pub id: String,
+   pub active:bool
 }
