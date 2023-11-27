@@ -1,5 +1,5 @@
 
-#[derive(Deserialize,Clone)]
+#[derive(Deserialize,Serialize, Clone,PartialEq)]
 pub struct Staff {
     id: String,
     first_name:String,
@@ -8,17 +8,16 @@ pub struct Staff {
     driver_license:String,
     in_contract:bool,
     active:bool,
-    address:Vec<Contract>,
+    address:Vec<Contact>,
     contacts:Vec<Address>
 }
-
-#[derive(Deserialize,Clone)]
-pub struct Contract{
+#[derive(Deserialize,Serialize, Clone,PartialEq)]
+pub struct Contact{
     id:String,
     contact_type_id:String,
     contact_value:String
 }
-#[derive(Deserialize,Clone)]
+#[derive(Deserialize,Serialize, Clone,PartialEq)]
 pub struct  Address{
     id:String,
     street:String,
