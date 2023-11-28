@@ -8,14 +8,16 @@ pub struct EventStaff {
     pub driver_license:String,
     pub in_contract:bool,
     pub active:bool,
-    pub address:Vec<EventContact>,
-    pub contacts:Vec<EventAddress>
+    pub address:Vec<EventAddress>,
+    pub contacts:Vec<EventContact>
 }
 #[derive(Deserialize,Serialize, Clone,PartialEq,Debug)]
 pub struct EventContact{
     pub id:String,
     pub contact_type_id:String,
-    pub contact_value:String
+    pub contact_value:String,
+    pub staff_id:String,
+    pub primary:bool
 }
 #[derive(Deserialize,Serialize, Clone,PartialEq,Debug)]
 pub struct  EventAddress{
@@ -24,5 +26,6 @@ pub struct  EventAddress{
     pub state:String,
     pub post_code:String,
     pub country:String,
-    pub staff_id:String
+    pub staff_id:String,
+    pub primary:bool
 }

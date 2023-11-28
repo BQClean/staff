@@ -22,14 +22,14 @@ pub struct RootStaff {
    pub address: Vec<Address>,
    pub contacts: Vec<Contact>,
 }
-
 #[derive(Deserialize, Serialize, Clone)]
 pub struct Contact {
     pub id: String,
     pub contact_type_id: String,
     pub contact_value: String,
+    pub staff_id:String,
+    pub primary:bool
 }
-
 #[derive(Deserialize, Serialize, Clone)]
 pub struct Address {
     pub id: String,
@@ -38,10 +38,8 @@ pub struct Address {
     pub post_code: String,
     pub country: String,
     pub staff_id: String,
+    pub primary:bool
 }
-
-
-
 #[async_trait]
 impl Aggregate for RootStaff {
     type Command = CommandsStaff;
@@ -73,48 +71,24 @@ impl Aggregate for RootStaff {
                recv_timestamp
            }=>{
                let staff_val=self.compose_staff(&data);
-
-
                Ok(vec![StaffEvent::StaffUpdated(CommonEvent{
                    corelation_id: id,
                    data: staff_val,
                    recv_timestamp,
                })])
+           },
+           CommandsStaff::CreateAddress {
+               id,
+               data,
+               recv_timestamp
+           }=>{
+
            }
        }
     }
 
     fn apply(&mut self, event: Self::Event) {
         todo!()
-    }
-}
-
-impl RootStaff{
-    pub fn compose_staff<'c>(&self, data: &Staff) -> EventStaff {
-        let staff_upd = EventStaff{
-            id: data.id.to_string(),
-            first_name: data.first_name.to_string(),
-            last_name: data.last_name.to_string(),
-            vehicle_reg: data.vehicle_reg.to_string(),
-            driver_license: data.driver_license.to_string(),
-            in_contract: data.in_contract,
-            active: false,
-            address:vec![],
-            contacts:vec![]
-        };
-
-        if self.contacts.len() > 0 {
-          let mut contact:Vec<EventContact> = Vec::new();
-          for con in self.contacts.iter(){
-              contact.push(EventContact{
-                  id: con.id.clone(),
-                  contact_type_id: "".to_string(),
-                  contact_value: "".to_string(),
-              })
-          }
-        }
-
-        return staff_upd
     }
 }
 
