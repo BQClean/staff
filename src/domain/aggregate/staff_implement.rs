@@ -2,23 +2,31 @@ use std::ops::Add;
 use std::option::Option;
 
 impl RootStaff {
-    pub fn compose_staff(&self, data: &Staff) -> EventStaff {
-        let staff_upd = EventStaff {
-            id: data.id.to_string(),
-            first_name: data.first_name.to_string(),
-            last_name: data.last_name.to_string(),
-            vehicle_reg: data.vehicle_reg.to_string(),
-            driver_license: data.driver_license.to_string(),
-            in_contract: data.in_contract,
-            active: false,
-            address: self.compose_address(Box::new(None)),
-            contacts: self.compose_contact(Box::new(None)),
+    fn compose_staff(&self, opt_staff: Box<Option<Staff>>) -> Box<Option<EventStaff>> {
+        let optional_staff = *opt_staff;
+        return match optional_staff {
+            Some(staff) => {
+                let staff_upd = EventStaff {
+                    id: staff.id.to_string(),
+                    first_name: staff.first_name.to_string(),
+                    last_name: staff.last_name.to_string(),
+                    vehicle_reg: staff.vehicle_reg.to_string(),
+                    driver_license: staff.driver_license.to_string(),
+                    in_contract: staff.in_contract,
+                    active: false,
+                    address: self.compose_address(Box::new(None)),
+                    contacts: self.compose_contact(Box::new(None)),
+                };
+                Box::new(Some(staff_upd))
+            }
+            None => {
+                Box::new(None)
+            }
         };
-        return staff_upd;
     }
-    pub fn compose_address(&self, opt_add: Box<Option<Address>>) -> Vec<EventAddress> {
+    fn compose_address(&self, opt_add: Box<Option<Address>>) -> Vec<EventAddress> {
         let mut address: Vec<EventAddress> = Vec::new();
-        let address_func = |add_vec : &mut Vec<EventAddress>, addr:&Address|{
+        let address_func = |add_vec: &mut Vec<EventAddress>, addr: &Address| {
             add_vec.push(EventAddress {
                 id: addr.id.to_string(),
                 street: addr.street.to_string(),
@@ -31,43 +39,43 @@ impl RootStaff {
         };
 
         for addr in &self.address {
-            address_func(&mut address,addr )
+            address_func(&mut address, addr)
         }
 
         let optional_address = *opt_add;
         match optional_address {
-            Some(add)=>{
-                address_func(&mut address,&add)
+            Some(add) => {
+                address_func(&mut address, &add)
             }
-            None =>{ }
+            None => {}
         }
         return address;
     }
 
-    pub fn compose_contact(&self, opt_con: Box<Option<Contact>>) -> Vec<EventContact> {
+    fn compose_contact(&self, opt_con: Box<Option<Contact>>) -> Vec<EventContact> {
         let mut contacts: Vec<EventContact> = Vec::new();
-        let contact_func = |con_vec : &mut Vec<EventContact>, con:&Contact|{
+        let contact_func = |con_vec: &mut Vec<EventContact>, con: &Contact| {
             con_vec.push(EventContact {
                 id: con.id.to_string(),
-                contact_type_id:con.contact_type_id.to_string(),
-                contact_value:con.contact_value.to_string(),
+                contact_type_id: con.contact_type_id.to_string(),
+                contact_value: con.contact_value.to_string(),
                 staff_id: con.staff_id.to_string(),
                 primary: con.primary,
             })
         };
 
         for con in &self.contacts {
-            contact_func(&mut contacts,con )
+            contact_func(&mut contacts, con)
         }
 
         let optional_contact = *opt_con;
         match optional_contact {
-            Some(con)=>{
-                contact_func(&mut contacts,&con )
-            },
-            None =>{ }
+            Some(con) => {
+                contact_func(&mut contacts, &con)
+            }
+            None => {}
         }
 
-        return contacts
+        return contacts;
     }
 }
