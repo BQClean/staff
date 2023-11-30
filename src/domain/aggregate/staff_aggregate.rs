@@ -11,7 +11,7 @@ use crate::domain::events::{CommonEvent,
                             EventContact};
 
 #[async_trait]
-impl Aggregate for RootStaff {
+impl Aggregate for AggStaff {
     type Command = CommandsStaff;
     type Event = StaffEvent;
     type Error = StaffError;
@@ -62,7 +62,7 @@ impl Aggregate for RootStaff {
     }
 }
 
-impl Default for RootStaff {
+impl Default for AggStaff {
     fn default() -> Self {
         todo!()
     }

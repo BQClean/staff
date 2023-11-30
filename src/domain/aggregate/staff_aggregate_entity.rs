@@ -1,6 +1,6 @@
 
 #[derive(Deserialize, Serialize, Clone)]
-pub struct RootStaff {
+pub struct AggStaff {
     pub id: uuid::Uuid,
     pub first_name: String,
     pub last_name: String,
@@ -8,11 +8,11 @@ pub struct RootStaff {
     pub driver_license: String,
     pub in_contract: bool,
     pub active: bool,
-    pub address: Vec<Address>,
-    pub contacts: Vec<Contact>,
+    pub address: Vec<AggAddress>,
+    pub contacts: Vec<AggContact>,
 }
 #[derive(Deserialize, Serialize, Clone)]
-pub struct Contact {
+pub struct AggContact {
     pub id: String,
     pub contact_type_id: String,
     pub contact_value: String,
@@ -20,7 +20,7 @@ pub struct Contact {
     pub primary:bool
 }
 #[derive(Deserialize, Serialize, Clone)]
-pub struct Address {
+pub struct AggAddress {
     pub id: String,
     pub street: String,
     pub state: String,
