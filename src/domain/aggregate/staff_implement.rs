@@ -5,32 +5,36 @@ use crate::domain::common::EntityType;
 use std::any::Any;
 
 impl AggStaff {
-    pub fn get_staff_event(&self, cmd_staff: Box<Option<Staff>>) -> Option<& mut EventStaff> {
+    pub fn get_staff_event(&self, cmd_staff: Box<Option<Staff>>) -> Option<&mut EventStaff> {
         let staff = self.
             compose_staff(cmd_staff, true);
 
         return staff;
     }
 
-    pub fn get_address_event(&self, cmd_address: Box<Option<AggAddress>>) -> Option<EventStaff> {
+    pub fn get_address_event(&self, cmd_address: Box<Option<AggAddress>>) -> Option<& mut EventStaff> {
         let staff = self.
             compose_staff(Box::new(None), true);
 
         let address = self.compose_address(cmd_address);
-        if let Some( staff)=staff{
-             staff.address=address
+        if let Some(staff) = staff {
+            staff.address = address
         }
 
-
-
-
-        return None;
+        return staff;
     }
 
-    pub fn get_contact_event(&self, cmd_contact: Box<Option<AggContact>>) -> Option<EventStaff> {
-        return None;
-    }
+    pub fn get_contact_event(&self, cmd_contact: Box<Option<AggContact>>) -> Option<&mut EventStaff> {
+        let staff = self.
+            compose_staff(Box::new(None), true);
 
+        let contacts = self.compose_contact(cmd_contact);
+        if let Some(staff) = staff {
+            staff.contacts = contacts
+        }
+
+        return staff;
+    }
 
     pub(crate) fn compose_staff(&self, opt_staff: Box<Option<Staff>>, staff_only: bool) -> Option<&mut EventStaff> {
         let optional_staff = *opt_staff;
