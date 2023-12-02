@@ -3,6 +3,7 @@ use std::option::Option;
 use crate::domain::common;
 use crate::domain::common::EntityType;
 use std::any::Any;
+use crate::domain::commands::{CmdAddress, CmdContact};
 
 impl AggStaff {
     pub fn get_staff_event(&self, cmd_staff: Box<Option<CmdStaff>>) -> Option<EventStaff> {
@@ -11,7 +12,7 @@ impl AggStaff {
         return staff;
     }
 
-    pub fn get_address_event(&self, cmd_address: Box<Option<AggAddress>>) -> Option<EventStaff> {
+    pub fn get_address_event(&self, cmd_address: Box<Option<CmdAddress>>) -> Option<EventStaff> {
         let staff = self.compose_staff(Box::new(None), true);
 
         let address = self.compose_address(cmd_address);
@@ -25,7 +26,7 @@ impl AggStaff {
         return staff;
     }
 
-    pub fn get_contact_event(&self, cmd_contact: Box<Option<AggContact>>) -> Option<EventStaff> {
+    pub fn get_contact_event(&self, cmd_contact: Box<Option<CmdContact>>) -> Option<EventStaff> {
         let staff = self.compose_staff(Box::new(None), true);
 
         let contacts = self.compose_contact(cmd_contact);
@@ -88,55 +89,73 @@ impl AggStaff {
         };
     }
 
-    pub(crate) fn compose_address(&self, opt_add: Box<Option<AggAddress>>) -> Vec<EventAddress> {
-        let mut address: Vec<EventAddress> = Vec::new();
+    pub(crate) fn get_address(&self, address: &dyn AddressIn) -> EventAddress {
+        let event_address = EventAddress {
+            id: address.id().to_string(),
+            street: address.street().to_string(),
+            state: address.state().to_string(),
+            post_code: address.post_code().to_string(),
+            country: address.country().to_string(),
+            staff_id: address.staff_id().to_string(),
+            primary: address.primary(),
+        };
 
-        let address_func = |add_vec: &mut Vec<EventAddress>, addr: &AggAddress| {
-            add_vec.push(EventAddress {
-                id: addr.id.to_string(),
-                street: addr.street.to_string(),
-                state: addr.state.to_string(),
-                post_code: addr.post_code.to_string(),
-                country: addr.country.to_string(),
-                staff_id: addr.staff_id.to_string(),
-                primary: addr.primary,
-            })
+        return event_address;
+    }
+
+
+    pub(crate) fn compose_address(&self, opt_add: Box<Option<CmdAddress>>) -> Vec<EventAddress> {
+        let mut address_list: Vec<EventAddress> = Vec::new();
+
+        let optional_address = *opt_add;
+        match optional_address {
+            Some(address) => {
+                let address_composed = self.get_address(&address);
+                address_list.push(address_composed);
+            }
+            None => {}
         };
 
         for addr in &self.address {
-            address_func(&mut address, addr)
+            let address_composed=self.get_address(addr);
+            address_list.push(address_composed);
         }
-        let optional_address = *opt_add;
-        match optional_address {
-            Some(add) => {
-                address_func(&mut address, &add)
-            }
-            None => {}
-        }
-        return address;
+
+        return address_list;
     }
-    pub(crate) fn compose_contact(&self, opt_con: Box<Option<AggContact>>) -> Vec<EventContact> {
-        let mut contacts: Vec<EventContact> = Vec::new();
-        let contact_func = |con_vec: &mut Vec<EventContact>, con: &AggContact| {
-            con_vec.push(EventContact {
-                id: con.id.to_string(),
-                contact_type_id: con.contact_type_id.to_string(),
-                contact_value: con.contact_value.to_string(),
-                staff_id: con.staff_id.to_string(),
-                primary: con.primary,
-            })
+
+
+    pub(crate) fn get_contact(&self, contact: &dyn ContactIn) -> EventContact {
+        let event_contact = EventContact {
+            id: contact.id().to_string(),
+            contact_type_id: contact.contact_type_id().to_string(),
+            contact_value: contact.contact_value().to_string(),
+            staff_id: contact.staff_id().to_string(),
+            primary: contact.primary(),
         };
 
-        for con in &self.contacts {
-            contact_func(&mut contacts, con)
-        }
+        return event_contact;
+    }
+
+
+    pub(crate) fn compose_contact(&self, opt_con: Box<Option<CmdContact>>) -> Vec<EventContact> {
+        let mut contacts_list: Vec<EventContact> = Vec::new();
+
         let optional_contact = *opt_con;
         match optional_contact {
             Some(con) => {
-                contact_func(&mut contacts, &con)
+               let contact_composed = self.get_contact(&con);
+               contacts_list.push(contact_composed);
             }
             None => {}
         }
-        return contacts;
+
+
+        for con in &self.contacts {
+            let contact_composed=self.get_contact(con);
+            contacts_list.push(contact_composed);
+        }
+
+        return contacts_list;
     }
 }

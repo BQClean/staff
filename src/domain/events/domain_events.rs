@@ -38,7 +38,7 @@ impl DomainEvent for StaffEvent {
 }
 
 #[derive(Debug)]
-pub struct StaffError(String);
+pub struct StaffError(pub String);
 
 impl From<&str> for StaffError {
     fn from(value: &str) -> Self {
