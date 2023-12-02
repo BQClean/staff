@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 use cqrs_es::Aggregate;
 use serde::{Deserialize, Serialize};
-use crate::domain::commands::{CommandsStaff, Staff};
+use crate::domain::commands::{CommandsStaff, CmdStaff};
 use crate::domain::entities::{EntityAddress, EntityContract};
 use crate::domain::events::{CommonEvent,
                             StaffError,
@@ -28,7 +28,12 @@ impl Aggregate for AggStaff {
                id,
                recv_timestamp
            }=>{
-               let staff_val=self.compose_staff(&data);
+               let staff_val=self.get_staff_event(Box::new(Some(data)));
+
+
+
+
+
                Ok(vec![StaffEvent::StaffCreated(CommonEvent{
                    corelation_id: id,
                    data: staff_val,

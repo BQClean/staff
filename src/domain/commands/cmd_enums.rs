@@ -9,56 +9,56 @@ pub enum CommandsStaff {
     CreateStaff{
         id:String,
         recv_timestamp: DateTime<Utc>,
-        data:Staff
+        data: CmdStaff
     },
     UpdateStaff{
         id:String,
         recv_timestamp: DateTime<Utc>,
-        data:Staff
+        data: CmdStaff
     },
     InactiveStaff{
         id:String,
         recv_timestamp: DateTime<Utc>,
-        data:StaffActive
+        data:CmdStaffActive
     },
     CreateAddress{
         id:String,
         recv_timestamp: DateTime<Utc>,
-        data:Address
+        data: CmdAddress
     },
     UpdateAddress{
         id:String,
         recv_timestamp: DateTime<Utc>,
-        data:Address
+        data: CmdAddress
     },
     CreateContact{
         id:String,
         recv_timestamp: DateTime<Utc>,
-        data:Contact
+        data: CmdContact
     },
     UpdateContact{
         id:String,
         recv_timestamp: DateTime<Utc>,
-        data:Contact
+        data: CmdContact
     }
 }
 
 impl CommandsStaff {
-    pub fn  create_staff(staff:Staff)-> CommandsStaff {
+    pub fn  create_staff(staff: CmdStaff) -> CommandsStaff {
         return CommandsStaff::CreateStaff{
             id:CMD_CREATE_STAFF.to_string(),
             recv_timestamp:chrono::offset::Utc::now(),
             data:staff
         };
     }
-    pub fn  update_staff(staff:Staff)-> CommandsStaff {
+    pub fn  update_staff(staff: CmdStaff) -> CommandsStaff {
         return CommandsStaff::UpdateStaff{
             id:CMD_UPDATE_STAFF.to_string(),
             data:staff,
             recv_timestamp:chrono::offset::Utc::now()
         }
     }
-    pub fn  inactivate_staff(staff:StaffActive)-> CommandsStaff {
+    pub fn  inactivate_staff(staff:CmdStaffActive)-> CommandsStaff {
         return CommandsStaff::InactiveStaff{
             id:CMD_ACTIVE_STAFF.to_string(),
             data:staff,
@@ -66,28 +66,28 @@ impl CommandsStaff {
 
         }
     }
-    pub fn  create_address(address:Address)-> CommandsStaff {
+    pub fn  create_address(address: CmdAddress) -> CommandsStaff {
         return CommandsStaff::CreateAddress{
             id:CMD_CREATE_ADDRESS.to_string(),
             data:address,
             recv_timestamp:chrono::offset::Utc::now()
         }
     }
-    pub fn  update_address(address:Address)-> CommandsStaff {
+    pub fn  update_address(address: CmdAddress) -> CommandsStaff {
         return CommandsStaff::UpdateAddress{
             id:CMD_UPDATE_ADDRESS.to_string(),
             data:address,
             recv_timestamp:chrono::offset::Utc::now()
         }
     }
-    pub fn  create_contact(contract: Contact)-> CommandsStaff {
+    pub fn  create_contact(contract: CmdContact) -> CommandsStaff {
         return CommandsStaff::CreateContact{
             id:CMD_CREATE_CONTACT.to_string(),
             data:contract,
             recv_timestamp:chrono::offset::Utc::now()
         }
     }
-    pub fn  update_contact(contact: Contact)-> CommandsStaff {
+    pub fn  update_contact(contact: CmdContact) -> CommandsStaff {
         return CommandsStaff::UpdateContact{
             id:CMD_UPDATE_CONTACT.to_string(),
             data:contact,

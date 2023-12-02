@@ -5,7 +5,7 @@ use crate::domain::common::EntityType;
 use std::any::Any;
 
 impl AggStaff {
-    pub fn get_staff_event(&self, cmd_staff: Box<Option<Staff>>) -> Option<&mut EventStaff> {
+    pub fn get_staff_event(&self, cmd_staff: Box<Option<CmdStaff>>) -> Option<&mut EventStaff> {
         let staff = self.
             compose_staff(cmd_staff, true);
 
@@ -36,10 +36,10 @@ impl AggStaff {
         return staff;
     }
 
-    pub(crate) fn compose_staff(&self, opt_staff: Box<Option<Staff>>, staff_only: bool) -> Option<&mut EventStaff> {
+    pub(crate) fn compose_staff(&self, opt_staff: Box<Option<CmdStaff>>, staff_only: bool) -> Option<&mut EventStaff> {
         let optional_staff = *opt_staff;
 
-        let staff_fn = |staff: Staff, staff_only: bool| -> &mut EventStaff {
+        let staff_fn = |staff: CmdStaff, staff_only: bool| -> &mut EventStaff {
             let mut staff_upd = EventStaff {
                 id: staff.id.to_string(),
                 first_name: staff.first_name.to_string(),
