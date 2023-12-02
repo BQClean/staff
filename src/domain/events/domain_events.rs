@@ -14,10 +14,10 @@ pub struct CommonEvent<T> {
 pub enum StaffEvent {
     StaffCreated(CommonEvent<EventStaff>),
     StaffUpdated(CommonEvent<EventStaff>),
-    AddressCreated(CommonEvent<EventAddress>),
-    AddressUpdated(CommonEvent<EventAddress>),
-    ContactCreated(CommonEvent<EventContact>),
-    ContactUpdated(CommonEvent<EventContact>),
+    AddressCreated(CommonEvent<EventStaff>),
+    AddressUpdated(CommonEvent<EventStaff>),
+    ContactCreated(CommonEvent<EventStaff>),
+    ContactUpdated(CommonEvent<EventStaff>),
 }
 
 impl DomainEvent for StaffEvent {

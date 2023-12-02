@@ -16,11 +16,6 @@ pub enum CommandsStaff {
         recv_timestamp: DateTime<Utc>,
         data: CmdStaff
     },
-    InactiveStaff{
-        id:String,
-        recv_timestamp: DateTime<Utc>,
-        data:CmdStaffActive
-    },
     CreateAddress{
         id:String,
         recv_timestamp: DateTime<Utc>,
@@ -56,14 +51,6 @@ impl CommandsStaff {
             id:CMD_UPDATE_STAFF.to_string(),
             data:staff,
             recv_timestamp:chrono::offset::Utc::now()
-        }
-    }
-    pub fn  inactivate_staff(staff:CmdStaffActive)-> CommandsStaff {
-        return CommandsStaff::InactiveStaff{
-            id:CMD_ACTIVE_STAFF.to_string(),
-            data:staff,
-            recv_timestamp:chrono::offset::Utc::now()
-
         }
     }
     pub fn  create_address(address: CmdAddress) -> CommandsStaff {

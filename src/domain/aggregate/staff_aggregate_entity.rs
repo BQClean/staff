@@ -11,6 +11,7 @@ pub struct AggStaff {
     pub active: bool,
     pub address: Vec<AggAddress>,
     pub contacts: Vec<AggContact>,
+    pub operation:Operation,
 }
 #[derive(Deserialize, Serialize, Clone)]
 pub struct AggContact {
@@ -18,7 +19,8 @@ pub struct AggContact {
     pub contact_type_id: String,
     pub contact_value: String,
     pub staff_id:String,
-    pub primary:bool
+    pub primary:bool,
+    pub operation:Operation
 }
 #[derive(Deserialize, Serialize, Clone)]
 pub struct AggAddress {
@@ -28,7 +30,8 @@ pub struct AggAddress {
     pub post_code: String,
     pub country: String,
     pub staff_id: String,
-    pub primary:bool
+    pub primary:bool,
+    pub operation:Operation
 }
 
 impl StaffIn for AggStaff{

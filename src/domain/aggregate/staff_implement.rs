@@ -67,6 +67,7 @@ impl AggStaff {
             active: staff.active(),
             address: address(staff_only),
             contacts: contact(staff_only),
+            operation:Operation::On
         };
 
         return Some(staff_upd);
@@ -98,6 +99,7 @@ impl AggStaff {
             country: address.country().to_string(),
             staff_id: address.staff_id().to_string(),
             primary: address.primary(),
+            operation:Operation::On
         };
 
         return event_address;
@@ -132,6 +134,7 @@ impl AggStaff {
             contact_value: contact.contact_value().to_string(),
             staff_id: contact.staff_id().to_string(),
             primary: contact.primary(),
+            operation:Operation::On
         };
 
         return event_contact;

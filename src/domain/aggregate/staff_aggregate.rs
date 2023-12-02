@@ -30,15 +30,15 @@ impl Aggregate for AggStaff {
             } => {
                 let staff_val = self.get_staff_event(Box::new(Some(data)));
                 match staff_val {
-                    Some(staff)=>{
+                    Some(staff) => {
                         Ok(vec![StaffEvent::StaffCreated(CommonEvent {
                             corelation_id: id,
                             data: staff,
                             recv_timestamp,
                         })])
-                    },
-                    None=>{
-                       Err(StaffError("error in processing staff command".to_string()))
+                    }
+                    None => {
+                        Err(StaffError("error in processing staff command".to_string()))
                     }
                 }
             }
@@ -49,14 +49,14 @@ impl Aggregate for AggStaff {
             } => {
                 let staff_val = self.get_staff_event(Box::new(Some(data)));
                 match staff_val {
-                    Some(staff)=>{
+                    Some(staff) => {
                         Ok(vec![StaffEvent::StaffUpdated(CommonEvent {
                             corelation_id: id,
                             data: staff,
                             recv_timestamp,
                         })])
-                    },
-                    None=>{
+                    }
+                    None => {
                         Err(StaffError("error in processing staff command".to_string()))
                     }
                 }
@@ -66,22 +66,24 @@ impl Aggregate for AggStaff {
                 data,
                 recv_timestamp
             } => {
-
                 let staff_val = self.get_address_event(Box::new(Some(data)));
                 match staff_val {
-                    Some(staff)=>{
+                    Some(staff) => {
                         Ok(vec![StaffEvent::AddressCreated(CommonEvent {
                             corelation_id: id,
                             data: staff,
                             recv_timestamp,
                         })])
-                    },
-                    None=>{
+                    }
+                    None => {
                         Err(StaffError("error in processing staff command".to_string()))
                     }
                 }
-                
             }
+
+            CommandsStaff::UpdateAddress { .. } => {}
+            CommandsStaff::CreateContact { .. } => {}
+            CommandsStaff::UpdateContact { .. } => {}
         }
     }
 

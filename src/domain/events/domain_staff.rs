@@ -1,3 +1,4 @@
+use crate::domain::common::Operation;
 
 #[derive(Deserialize,Serialize, Clone,PartialEq,Debug)]
 pub struct EventStaff {
@@ -9,7 +10,8 @@ pub struct EventStaff {
     pub in_contract:bool,
     pub active:bool,
     pub address:Vec<EventAddress>,
-    pub contacts:Vec<EventContact>
+    pub contacts:Vec<EventContact>,
+    pub operation:Operation
 }
 #[derive(Deserialize,Serialize, Clone,PartialEq,Debug)]
 pub struct EventContact{
@@ -17,7 +19,8 @@ pub struct EventContact{
     pub contact_type_id:String,
     pub contact_value:String,
     pub staff_id:String,
-    pub primary:bool
+    pub primary:bool,
+    pub operation:Operation
 }
 #[derive(Deserialize,Serialize, Clone,PartialEq,Debug)]
 pub struct  EventAddress{
@@ -27,5 +30,6 @@ pub struct  EventAddress{
     pub post_code:String,
     pub country:String,
     pub staff_id:String,
-    pub primary:bool
+    pub primary:bool,
+    pub operation:Operation
 }
