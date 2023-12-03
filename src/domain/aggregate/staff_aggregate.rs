@@ -76,14 +76,68 @@ impl Aggregate for AggStaff {
                         })])
                     }
                     None => {
-                        Err(StaffError("error in processing staff command".to_string()))
+                        Err(StaffError("error in processing address command".to_string()))
                     }
                 }
             }
 
-            CommandsStaff::UpdateAddress { .. } => {}
-            CommandsStaff::CreateContact { .. } => {}
-            CommandsStaff::UpdateContact { .. } => {}
+            CommandsStaff::UpdateAddress {
+                recv_timestamp,
+                data,
+                id
+            } => {
+                let staff_val = self.get_address_event(Box::new(Some(data)));
+                match staff_val {
+                    Some(staff) => {
+                        Ok(vec![StaffEvent::AddressUpdated(CommonEvent {
+                            corelation_id: id,
+                            data: staff,
+                            recv_timestamp,
+                        })])
+                    }
+                    None => {
+                        Err(StaffError("error in processing address command".to_string()))
+                    }
+                }
+            }
+            CommandsStaff::CreateContact {
+                id,
+                data,
+                recv_timestamp
+            } => {
+                let staff_val = self.get_contact_event(Box::new(Some(data)));
+                match staff_val {
+                    Some(staff) => {
+                        Ok(vec![StaffEvent::ContactCreated(CommonEvent {
+                            corelation_id: id,
+                            data: staff,
+                            recv_timestamp,
+                        })])
+                    }
+                    None => {
+                        Err(StaffError("error in processing contact command".to_string()))
+                    }
+                }
+            }
+            CommandsStaff::UpdateContact {
+                id,
+                data,
+                recv_timestamp
+            } => {
+                let staff_val = self.get_contact_event(Box::new(Some(data)));
+                match staff_val {
+                    Some(staff) => {
+                        Ok(vec![StaffEvent::ContactUpdated(CommonEvent {
+                            corelation_id: id,
+                            data: staff,
+                            recv_timestamp,
+                        })])
+                    }
+                    None => {
+                        Err(StaffError("error in processing contact command".to_string()))
+                    }
+                }
+            }
         }
     }
 
