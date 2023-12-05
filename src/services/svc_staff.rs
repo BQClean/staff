@@ -15,6 +15,19 @@ impl StaffService{
 #[async_trait]
 impl IStaffService for StaffService {
     async fn validate_staff(&self, command: Box<Option<CmdStaff>>) -> Result<(), StaffError> {
+
+        let staff= command.as_ref();
+        match staff {
+            Some(ref stf)=>{
+                if stf.id == ""{
+                    
+                }
+            }
+            None=>{
+
+            }
+        }
+
         todo!()
     }
 
