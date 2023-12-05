@@ -15,8 +15,8 @@ impl StaffService{
 #[async_trait]
 impl IStaffService for StaffService {
     async fn validate_staff(&self, command: Box<Option<CmdStaff>>) -> Result<(), StaffError> {
-
         let staff= command.as_ref();
+
         match staff {
             Some(ref stf)=>{
                 if stf.id.is_empty(){
@@ -44,7 +44,32 @@ impl IStaffService for StaffService {
     }
 
     async fn validate_address(&self, command: Box<Option<CmdAddress>>) -> Result<(), StaffError> {
-        todo!()
+        let address= command.as_ref();
+
+        match address {
+            Some(ref stf)=>{
+                if stf.id.is_empty(){
+                    return Err(StaffError("address id is not defined".to_string()))
+                }
+
+                if stf.staff_id.is_empty(){
+                    return Err(StaffError("staff id is not defined".to_string()))
+                }
+
+                if stf.post_code.is_empty(){
+                    return Err(StaffError("post code is not defined".to_string()))
+                }
+
+                if stf.street.is_empty(){
+                    return Err(StaffError("street is not defined".to_string()))
+                }
+            }
+            None=>{
+                return Err(StaffError("address is not defined".to_string()))
+            }
+        }
+
+        Ok(())
     }
 
     async fn validate_contact(&self, command: Box<Option<CmdContact>>) -> Result<(), StaffError> {
