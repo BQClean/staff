@@ -141,6 +141,7 @@ impl Aggregate for AggStaff {
         }
     }
 
+
     fn apply(&mut self, event: Self::Event) {
         todo!()
     }
