@@ -21,6 +21,7 @@ impl Aggregate for AggStaff {
         return String::from("staff");
     }
 
+
     async fn handle(&self, command: Self::Command, service: &Self::Services) -> Result<Vec<Self::Event>, Self::Error> {
         match command {
             CommandsStaff::CreateStaff {
@@ -28,57 +29,21 @@ impl Aggregate for AggStaff {
                 id,
                 recv_timestamp
             } => {
-                let staff_val = self.get_staff_event(Box::new(Some(data)));
-                match staff_val {
-                    Some(staff) => {
-                        Ok(vec![StaffEvent::StaffCreated(CommonEvent {
-                            corelation_id: id,
-                            data: staff,
-                            recv_timestamp,
-                        })])
-                    }
-                    None => {
-                        Err(StaffError("error in processing staff command".to_string()))
-                    }
-                }
+                self.create_staff_match(data,id,recv_timestamp).await
             }
             CommandsStaff::UpdateStaff {
                 id,
                 data,
                 recv_timestamp
             } => {
-                let staff_val = self.get_staff_event(Box::new(Some(data)));
-                match staff_val {
-                    Some(staff) => {
-                        Ok(vec![StaffEvent::StaffUpdated(CommonEvent {
-                            corelation_id: id,
-                            data: staff,
-                            recv_timestamp,
-                        })])
-                    }
-                    None => {
-                        Err(StaffError("error in processing staff command".to_string()))
-                    }
-                }
+                self.update_staff_match(data,id,recv_timestamp).await
             }
             CommandsStaff::CreateAddress {
                 id,
                 data,
                 recv_timestamp
             } => {
-                let staff_val = self.get_address_event(Box::new(Some(data)));
-                match staff_val {
-                    Some(staff) => {
-                        Ok(vec![StaffEvent::AddressCreated(CommonEvent {
-                            corelation_id: id,
-                            data: staff,
-                            recv_timestamp,
-                        })])
-                    }
-                    None => {
-                        Err(StaffError("error in processing address command".to_string()))
-                    }
-                }
+                self.create_address_match(data,id,recv_timestamp).await
             }
 
             CommandsStaff::UpdateAddress {
@@ -86,61 +51,24 @@ impl Aggregate for AggStaff {
                 data,
                 id
             } => {
-                let staff_val = self.get_address_event(Box::new(Some(data)));
-                match staff_val {
-                    Some(staff) => {
-                        Ok(vec![StaffEvent::AddressUpdated(CommonEvent {
-                            corelation_id: id,
-                            data: staff,
-                            recv_timestamp,
-                        })])
-                    }
-                    None => {
-                        Err(StaffError("error in processing address command".to_string()))
-                    }
-                }
+               self.update_address_match(data,id,recv_timestamp).await
             }
             CommandsStaff::CreateContact {
                 id,
                 data,
                 recv_timestamp
             } => {
-                let staff_val = self.get_contact_event(Box::new(Some(data)));
-                match staff_val {
-                    Some(staff) => {
-                        Ok(vec![StaffEvent::ContactCreated(CommonEvent {
-                            corelation_id: id,
-                            data: staff,
-                            recv_timestamp,
-                        })])
-                    }
-                    None => {
-                        Err(StaffError("error in processing contact command".to_string()))
-                    }
-                }
+                self.create_contact_match(data,id,recv_timestamp).await
             }
             CommandsStaff::UpdateContact {
                 id,
                 data,
                 recv_timestamp
             } => {
-                let staff_val = self.get_contact_event(Box::new(Some(data)));
-                match staff_val {
-                    Some(staff) => {
-                        Ok(vec![StaffEvent::ContactUpdated(CommonEvent {
-                            corelation_id: id,
-                            data: staff,
-                            recv_timestamp,
-                        })])
-                    }
-                    None => {
-                        Err(StaffError("error in processing contact command".to_string()))
-                    }
-                }
+                self.update_contact_match(data,id,recv_timestamp).await
             }
         }
     }
-
 
     fn apply(&mut self, event: Self::Event) {
         todo!()
