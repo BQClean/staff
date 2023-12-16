@@ -3,25 +3,33 @@ use crate::domain::common;
 use crate::domain::common::{AddressIn, ContactIn, StaffActiveIn, StaffIn};
 use validator::{Validate, ValidationError};
 
-#[derive(Deserialize,Serialize,Clone)]
+#[derive(Deserialize,Serialize,Clone,Validate)]
 pub struct CmdStaff {
+   #[validate(length(min = 36,max=36), custom = "common::validate_unique_id")]
    pub id: String,
+   #[validate(length(min=1))]
    pub first_name:String,
+   #[validate(length(min=1))]
    pub last_name:String,
    pub vehicle_reg:String,
    pub driver_license:String,
+   #[validate]
    pub in_contract:bool,
+   #[validate(required)]
    pub active:bool
 }
 
 #[derive(Deserialize,Serialize,Clone,Validate)]
 pub struct CmdAddress {
    pub id:String,
+   #[validate(required)]
    pub street:String,
+   #[validate(required)]
    pub state:String,
+   #[validate(required)]
    pub post_code:String,
    pub country:String,
-   #[validate(length(min = 36,max=36), custom = "common::validate_unique_staff_id")]
+   #[validate(length(min = 36,max=36), custom = "common::validate_unique_id")]
    pub staff_id:String,
    pub primary:bool
 }
@@ -31,7 +39,7 @@ pub struct CmdContact {
    pub id:String,
    pub contact_type_id:String,
    pub contact_value:String,
-   #[validate(length(min = 36,max=36), custom = "common::validate_unique_staff_id")]
+   #[validate(length(min = 36,max=36), custom = "common::validate_unique_id")]
    pub staff_id:String,
    pub primary:bool
 }
