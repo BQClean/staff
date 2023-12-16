@@ -14,7 +14,7 @@ impl AggStaff {
     /// Returns a `Result` containing a vector of `StaffEvent` if the staff was created successfully,
     /// or a `StaffError` if an error occurred during staff creation
     pub(crate) async fn create_staff_match(&self,
-                                           data: CmdStaff,
+                                           data: &CmdStaff,
                                            id: String,
                                            recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_staff_event(Box::new(Some(data)));
@@ -47,7 +47,7 @@ impl AggStaff {
     /// Returns a [`Result`] containing a vector of [`StaffEvent`]s if the staff match was updated successfully,
     /// or a [`StaffError`] if there was an error in processing the staff command.
     pub(crate) async fn update_staff_match(&self,
-                                           data: CmdStaff,
+                                           data: &CmdStaff,
                                            id: String,
                                            recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_staff_event(Box::new(Some(data)));
@@ -79,7 +79,7 @@ impl AggStaff {
     /// * `Result<Vec<StaffEvent>, StaffError>` - A result containing
     /// either a vector of staff events if the address match was successfully created, or a `
     pub(crate) async fn create_address_match(&self,
-                                             data: CmdAddress,
+                                             data: &CmdAddress,
                                              id: String,
                                              recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_address_event(Box::new(Some(data)));
@@ -111,7 +111,7 @@ impl AggStaff {
     /// Returns a `Result` that contains a vector of `StaffEvent`
     /// if the address update is successful. Otherwise, returns a `StaffError` indicating an error
     pub(crate) async fn update_address_match(&self,
-                                             data: CmdAddress,
+                                             data: &CmdAddress,
                                              id: String,
                                              recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_address_event(Box::new(Some(data)));
@@ -149,7 +149,7 @@ impl AggStaff {
     /// use std::result::Result;
     /// use chrono::{DateTime,
     pub(crate) async fn create_contact_match(&self,
-                                             data: CmdContact,
+                                             data: &CmdContact,
                                              id: String,
                                              recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_contact_event(Box::new(Some(data)));
@@ -181,7 +181,7 @@ impl AggStaff {
     /// Returns a `Result` containing a vector of `StaffEvent` if the contact was updated successfully,
     /// or a `StaffError` if there was an error processing the
     pub(crate) async fn update_contact_match(&self,
-                                             data: CmdContact,
+                                             data: &CmdContact,
                                              id: String,
                                              recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_contact_event(Box::new(Some(data)));

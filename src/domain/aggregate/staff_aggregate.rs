@@ -9,13 +9,16 @@ use crate::domain::events::{CommonEvent,
                             EventStaff,
                             EventAddress,
                             EventContact};
+use crate::services::svc_staff;
+use crate::services::svc_staff::StaffService;
+use crate::traits::IStaffService;
 
 #[async_trait]
 impl Aggregate for AggStaff {
     type Command = CommandsStaff;
     type Event = StaffEvent;
     type Error = StaffError;
-    type Services = ();
+    type Services = StaffService;
 
     fn aggregate_type() -> String {
         return String::from("staff");
@@ -29,21 +32,34 @@ impl Aggregate for AggStaff {
                 id,
                 recv_timestamp
             } => {
-                self.create_staff_match(data,id,recv_timestamp).await
+                let serve_valid = service.validate_staff(Box::new(Some(&data))).await;
+                match serve_valid{
+                    Ok(_)=>{
+                        self.create_staff_match(&data, id, recv_timestamp).await
+                    }
+                    Err(e)=> return Err(StaffError("error in staff validation".to_string()))
+                }
             }
             CommandsStaff::UpdateStaff {
                 id,
                 data,
                 recv_timestamp
             } => {
-                self.update_staff_match(data,id,recv_timestamp).await
+                let serve_valid = service.validate_staff(Box::new(Some(&data))).await;
+
+                match serve_valid{
+                    Ok(_)=>{
+                        self.update_staff_match(&data, id, recv_timestamp).await
+                    }
+                    Err(e)=> return Err(StaffError("error in staff validation".to_string()))
+                }
             }
             CommandsStaff::CreateAddress {
                 id,
                 data,
                 recv_timestamp
             } => {
-                self.create_address_match(data,id,recv_timestamp).await
+                self.create_address_match(&data, id, recv_timestamp).await
             }
 
             CommandsStaff::UpdateAddress {
@@ -51,21 +67,21 @@ impl Aggregate for AggStaff {
                 data,
                 id
             } => {
-               self.update_address_match(data,id,recv_timestamp).await
+                self.update_address_match(&data, id, recv_timestamp).await
             }
             CommandsStaff::CreateContact {
                 id,
                 data,
                 recv_timestamp
             } => {
-                self.create_contact_match(data,id,recv_timestamp).await
+                self.create_contact_match(&data, id, recv_timestamp).await
             }
             CommandsStaff::UpdateContact {
                 id,
                 data,
                 recv_timestamp
             } => {
-                self.update_contact_match(data,id,recv_timestamp).await
+                self.update_contact_match(&data, id, recv_timestamp).await
             }
         }
     }

@@ -17,7 +17,7 @@ impl AggStaff {
     /// # Returns
     ///
     /// An optional event staff object.
-    pub fn get_staff_event(&self, cmd_staff: Box<Option<CmdStaff>>) -> Option<EventStaff> {
+    pub fn get_staff_event(&self, cmd_staff: Box<Option<&CmdStaff>>) -> Option<EventStaff> {
         let staff = self.compose_staff(cmd_staff, true);
 
         return staff;
@@ -32,7 +32,7 @@ impl AggStaff {
     /// # Returns
     ///
     /// An optional `EventStaff` object, or `None` if the staff is not found.
-    pub fn get_address_event(&self, cmd_address: Box<Option<CmdAddress>>) -> Option<EventStaff> {
+    pub fn get_address_event(&self, cmd_address: Box<Option<&CmdAddress>>) -> Option<EventStaff> {
         let staff = self.compose_staff(Box::new(None), true);
 
         let address = self.compose_address(cmd_address);
@@ -57,7 +57,7 @@ impl AggStaff {
     ///
     /// Returns an `Option<EventStaff>` representing the contact event
     /// for the given command contact. If the staff object is present, the contacts field will
-    pub fn get_contact_event(&self, cmd_contact: Box<Option<CmdContact>>) -> Option<EventStaff> {
+    pub fn get_contact_event(&self, cmd_contact: Box<Option<&CmdContact>>) -> Option<EventStaff> {
         let staff = self.compose_staff(Box::new(None), true);
 
         let contacts = self.compose_contact(cmd_contact);
@@ -129,12 +129,12 @@ impl AggStaff {
     ///
     /// An optional event staff object.
     ///
-    pub(crate) fn compose_staff(&self, opt_staff: Box<Option<CmdStaff>>, staff_only: bool) -> Option<EventStaff> {
+    pub(crate) fn compose_staff(&self, opt_staff: Box<Option<&CmdStaff>>, staff_only: bool) -> Option<EventStaff> {
         let optional_staff = *opt_staff;
 
         let stf = return match optional_staff {
             Some(staff) => {
-                let result_staff = self.get_staff(&staff, staff_only);
+                let result_staff = self.get_staff(staff, staff_only);
 
                 result_staff
             }
@@ -188,13 +188,13 @@ impl AggStaff {
     /// # Returns
     ///
     /// A vector of `EventAddress`es containing the composed addresses.
-    pub(crate) fn compose_address(&self, opt_add: Box<Option<CmdAddress>>) -> Vec<EventAddress> {
+    pub(crate) fn compose_address(&self, opt_add: Box<Option<&CmdAddress>>) -> Vec<EventAddress> {
         let mut address_list: Vec<EventAddress> = Vec::new();
 
         let optional_address = *opt_add;
         match optional_address {
             Some(address) => {
-                let address_composed = self.get_address(&address);
+                let address_composed = self.get_address(address);
                 address_list.push(address_composed);
             }
             None => {}
@@ -248,13 +248,13 @@ impl AggStaff {
     /// let opt_con = Box::new(Some(cmd_con));
     /// let result = compose_contact(&self, opt_con);
     /// ```
-    pub(crate) fn compose_contact(&self, opt_con: Box<Option<CmdContact>>) -> Vec<EventContact> {
+    pub(crate) fn compose_contact(&self, opt_con: Box<Option<&CmdContact>>) -> Vec<EventContact> {
         let mut contacts_list: Vec<EventContact> = Vec::new();
 
         let optional_contact = *opt_con;
         match optional_contact {
             Some(con) => {
-               let contact_composed = self.get_contact(&con);
+               let contact_composed = self.get_contact(con);
                contacts_list.push(contact_composed);
             }
             None => {}

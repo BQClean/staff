@@ -13,20 +13,15 @@ pub struct CmdStaff {
    pub last_name:String,
    pub vehicle_reg:String,
    pub driver_license:String,
-   #[validate]
    pub in_contract:bool,
-   #[validate(required)]
    pub active:bool
 }
 
 #[derive(Deserialize,Serialize,Clone,Validate)]
 pub struct CmdAddress {
    pub id:String,
-   #[validate(required)]
    pub street:String,
-   #[validate(required)]
    pub state:String,
-   #[validate(required)]
    pub post_code:String,
    pub country:String,
    #[validate(length(min = 36,max=36), custom = "common::validate_unique_id")]
@@ -43,8 +38,6 @@ pub struct CmdContact {
    pub staff_id:String,
    pub primary:bool
 }
-
-
 
 
 #[derive(Deserialize,Serialize,Clone)]
