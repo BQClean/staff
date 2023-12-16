@@ -34,6 +34,7 @@ pub struct AggAddress {
     pub operation:Operation
 }
 
+
 impl StaffIn for AggStaff{
     fn id(&self) -> &str {return &self.id }
     fn first_name(&self) -> &str {return &self.first_name}
