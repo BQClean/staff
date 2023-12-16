@@ -59,7 +59,14 @@ impl Aggregate for AggStaff {
                 data,
                 recv_timestamp
             } => {
-                self.create_address_match(&data, id, recv_timestamp).await
+                let serve_valid = service.validate_address(Box::new(Some(&data))).await;
+
+                match serve_valid{
+                    Ok(_)=>{
+                        self.create_address_match(&data, id, recv_timestamp).await
+                    }
+                    Err(e)=> return Err(StaffError("error in address validation".to_string()))
+                }
             }
 
             CommandsStaff::UpdateAddress {
@@ -67,21 +74,42 @@ impl Aggregate for AggStaff {
                 data,
                 id
             } => {
-                self.update_address_match(&data, id, recv_timestamp).await
+                let serve_valid = service.validate_address(Box::new(Some(&data))).await;
+
+                match serve_valid{
+                    Ok(_)=>{
+                        self.update_address_match(&data, id, recv_timestamp).await
+                    }
+                    Err(e)=> return Err(StaffError("error in address validation".to_string()))
+                }
             }
             CommandsStaff::CreateContact {
                 id,
                 data,
                 recv_timestamp
             } => {
-                self.create_contact_match(&data, id, recv_timestamp).await
+                let serve_valid = service.validate_contact(Box::new(Some(&data))).await;
+
+                match serve_valid{
+                    Ok(_)=>{
+                        self.create_contact_match(&data, id, recv_timestamp).await
+                    }
+                    Err(e)=> return Err(StaffError("error in contact validation".to_string()))
+                }
             }
             CommandsStaff::UpdateContact {
                 id,
                 data,
                 recv_timestamp
             } => {
-                self.update_contact_match(&data, id, recv_timestamp).await
+                let serve_valid = service.validate_contact(Box::new(Some(&data))).await;
+
+                match serve_valid{
+                    Ok(_)=>{
+                        self.update_contact_match(&data, id, recv_timestamp).await
+                    }
+                    Err(e)=> return Err(StaffError("error in contact validation".to_string()))
+                }
             }
         }
     }
