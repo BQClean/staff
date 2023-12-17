@@ -139,6 +139,31 @@ impl Aggregate for AggStaff {
     }
 
 
+    /// Applies a staff event to the system.
+    ///
+    /// # Parameters
+    ///
+    /// - `event`: The staff event to apply.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// let mut system = System::new();
+    /// let event = StaffEvent::StaffCreated(staff);
+    /// system.apply(event);
+    /// ```
+    ///
+    /// # Errors
+    ///
+    /// This function does not return any errors.
+    ///
+    /// # Safety
+    ///
+    /// This function is safe to call as long as the `event` parameter is a valid staff event variant.
+    ///
+    /// # Panics
+    ///
+    /// This function does not panic.
     fn apply(&mut self, event: Self::Event) {
        match event{
            StaffEvent::StaffCreated(staff)=>{
