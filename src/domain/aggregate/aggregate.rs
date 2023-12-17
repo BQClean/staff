@@ -115,7 +115,31 @@ impl Aggregate for AggStaff {
     }
 
     fn apply(&mut self, event: Self::Event) {
-        todo!()
+       match event{
+           StaffEvent::StaffCreated(staff)=>{
+               let  data_ref = &staff.data;
+               let  corerel_ref = &staff.corelation_id;
+               let  timestamp_ref = &staff.recv_timestamp;
+
+
+
+           }
+           StaffEvent::StaffUpdated(staff)=>{
+
+           }
+           StaffEvent::AddressCreated(staff)=>{
+
+           }
+           StaffEvent::AddressUpdated(staff)=>{
+
+           }
+           StaffEvent::ContactCreated(staff)=>{
+
+           }
+           StaffEvent::ContactUpdated(staff)=>{
+
+           }
+       }
     }
 }
 
