@@ -25,6 +25,30 @@ impl Aggregate for AggStaff {
     }
 
 
+    /// Handles staff commands by calling the corresponding match function based on the command type.
+    ///
+    /// # Arguments
+    ///
+    /// * `command` - The staff command to be handled.
+    /// * `service` - The service instance used for validation.
+    ///
+    /// # Returns
+    ///
+    /// Returns a `Result` containing a vector of events or an error.
+    /// The events represent the changes made as a result of the command.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// // Create a staff command
+    /// let command = CommandsStaff::CreateStaff { data, id, recv_timestamp };
+    ///
+    /// // Create a service instance
+    /// let service = Services::new();
+    ///
+    /// // Handle the command
+    /// let result = handler.handle(command, &service).await;
+    /// ```
     async fn handle(&self, command: Self::Command, service: &Self::Services) -> Result<Vec<Self::Event>, Self::Error> {
         match command {
             CommandsStaff::CreateStaff {
@@ -114,13 +138,11 @@ impl Aggregate for AggStaff {
         }
     }
 
+
     fn apply(&mut self, event: Self::Event) {
        match event{
            StaffEvent::StaffCreated(staff)=>{
-               let  data_ref = &staff.data;
-               let  corerel_ref = &staff.corelation_id;
-               let  timestamp_ref = &staff.recv_timestamp;
-
+               let  data_ref = &staff;
 
 
            }
