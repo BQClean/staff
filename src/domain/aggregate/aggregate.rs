@@ -142,24 +142,22 @@ impl Aggregate for AggStaff {
     fn apply(&mut self, event: Self::Event) {
        match event{
            StaffEvent::StaffCreated(staff)=>{
-               let  data_ref = &staff;
-
-
+               self.process_staff_created_event(Box::new(&staff));
            }
            StaffEvent::StaffUpdated(staff)=>{
-
+               self.process_staff_updated_event(Box::new(&staff));
            }
            StaffEvent::AddressCreated(staff)=>{
-
+               self.process_address_created_event(Box::new(&staff));
            }
            StaffEvent::AddressUpdated(staff)=>{
-
+               self.process_address_updated_event(Box::new(&staff));
            }
            StaffEvent::ContactCreated(staff)=>{
-
+               self.process_contact_created_event(Box::new(&staff));
            }
            StaffEvent::ContactUpdated(staff)=>{
-
+               self.process_contact_updated_event(Box::new(&staff));
            }
        }
     }
