@@ -28,8 +28,8 @@ impl AggStaff {
         event: &CommonEvent<EventStaff>) {
         for add in event.data.address.iter() {
 
-            let ops = || -> Operation {
-                match add.operation {
+            let ops = |ad:&EventAddress| -> Operation {
+                match ad.operation {
                     Operation::On =>  Operation::On,
                     Operation::Off => Operation::Off,
                 }
@@ -43,14 +43,18 @@ impl AggStaff {
                 country: add.country.to_string(),
                 staff_id: add.staff_id.to_string(),
                 primary: add.primary,
-                operation:ops()
+                operation:ops(add)
             };
 
             self.address.push(address)
         }
     }
 
-    pub(crate) fn process_address_updated_event(&mut self, event: &CommonEvent<EventStaff>) {}
+    pub(crate) fn process_address_updated_event(
+        &mut self,
+        event: &CommonEvent<EventStaff>) {
+
+    }
 
     pub(crate) fn process_contact_created_event(&mut self, event: &CommonEvent<EventStaff>) {}
 
