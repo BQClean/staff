@@ -46,7 +46,7 @@ impl IConfig for Config{
                         self.event_store_name,self.event_store_schema)
     }
 
-    fn get_cqrs_framework(pool:Pool<Postgres>)->(Arc<PostgresCqrs<AggStaff>>){
+    fn get_cqrs_framework(pool:Pool<Postgres>)->Arc<PostgresCqrs<AggStaff>>{
 
     }
 
