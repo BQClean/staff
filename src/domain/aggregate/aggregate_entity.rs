@@ -62,3 +62,47 @@ impl ContactIn for AggContact{
     fn staff_id(&self) -> &str {return &self.staff_id}
     fn primary(&self) -> bool {return self.primary}
 }
+
+
+impl Default for AggStaff {
+    fn default() -> Self {
+        AggStaff{
+            id:"".to_string(),
+            first_name: "".to_string(),
+            last_name: "".to_string(),
+            vehicle_reg: "".to_string(),
+            driver_license: "".to_string(),
+            in_contract: false,
+            active: false,
+            address: vec![],
+            contacts: vec![],
+            operation: Operation::On,
+        }
+    }
+}
+impl Default for AggAddress {
+    fn default() -> Self {
+        AggAddress{
+            id: "".to_string(),
+            street: "".to_string(),
+            state: "".to_string(),
+            post_code: "".to_string(),
+            country: "".to_string(),
+            staff_id: "".to_string(),
+            primary: false,
+            operation: Operation::On,
+        }
+    }
+}
+impl Default for AggContact{
+    fn default() -> Self {
+        AggContact{
+            id: "".to_string(),
+            contact_type_id: "".to_string(),
+            contact_value: "".to_string(),
+            staff_id: "".to_string(),
+            primary: false,
+            operation: Operation::On,
+        }
+    }
+}

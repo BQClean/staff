@@ -1,4 +1,9 @@
+use std::sync::Arc;
+use postgres_es::PostgresCqrs;
+use sqlx::{Pool, Postgres};
 use crate::config::trait_config::{IConfig};
+use crate::domain::aggregate::AggStaff;
+
 #[derive(Debug)]
 pub struct Config {
     database_host: String,
@@ -40,4 +45,9 @@ impl IConfig for Config{
                         self.database_host,
                         self.event_store_name,self.event_store_schema)
     }
+
+    fn get_cqrs_framework(pool:Pool<Postgres>)->(Arc<PostgresCqrs<AggStaff>>){
+
+    }
+
 }

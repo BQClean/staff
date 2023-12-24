@@ -25,7 +25,11 @@ config="0.13.3"
 async-trait ="0.1.74"
 uuid = { version = "1.5.0", features = ["v4"] }
 cqrs-es = "0.4.10"
+postgres-es = "0.4.10"
 validator = {version = "0.16.1",features = ["derive"]}
+sqlx ={version = "0.7.3",features = ["postgres","runtime-tokio-rustls","json"]}
+
+
 
 [build-dependencies]
 tonic-build = "0.10.2"

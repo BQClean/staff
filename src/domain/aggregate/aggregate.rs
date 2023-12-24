@@ -13,6 +13,7 @@ use crate::services::svc_staff;
 use crate::services::svc_staff::StaffService;
 use crate::traits::IStaffService;
 
+
 #[async_trait]
 impl Aggregate for AggStaff {
     type Command = CommandsStaff;
@@ -24,31 +25,6 @@ impl Aggregate for AggStaff {
         return String::from("staff");
     }
 
-
-    /// Handles staff commands by calling the corresponding match function based on the command type.
-    ///
-    /// # Arguments
-    ///
-    /// * `command` - The staff command to be handled.
-    /// * `service` - The service instance used for validation.
-    ///
-    /// # Returns
-    ///
-    /// Returns a `Result` containing a vector of events or an error.
-    /// The events represent the changes made as a result of the command.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// // Create a staff command
-    /// let command = CommandsStaff::CreateStaff { data, id, recv_timestamp };
-    ///
-    /// // Create a service instance
-    /// let service = Services::new();
-    ///
-    /// // Handle the command
-    /// let result = handler.handle(command, &service).await;
-    /// ```
     async fn handle(&self, command: Self::Command, service: &Self::Services) -> Result<Vec<Self::Event>, Self::Error> {
         match command {
             CommandsStaff::CreateStaff {
@@ -138,32 +114,6 @@ impl Aggregate for AggStaff {
         }
     }
 
-
-    /// Applies a staff event to the system.
-    ///
-    /// # Parameters
-    ///
-    /// - `event`: The staff event to apply.
-    ///
-    /// # Examples
-    ///
-    /// ```rust
-    /// let mut system = System::new();
-    /// let event = StaffEvent::StaffCreated(staff);
-    /// system.apply(event);
-    /// ```
-    ///
-    /// # Errors
-    ///
-    /// This function does not return any errors.
-    ///
-    /// # Safety
-    ///
-    /// This function is safe to call as long as the `event` parameter is a valid staff event variant.
-    ///
-    /// # Panics
-    ///
-    /// This function does not panic.
     fn apply(&mut self, event: Self::Event) {
        match event{
            StaffEvent::StaffCreated(staff)=>{
@@ -185,11 +135,5 @@ impl Aggregate for AggStaff {
                self.process_contact_updated_event(&staff);
            }
        };
-    }
-}
-
-impl Default for AggStaff {
-    fn default() -> Self {
-        todo!()
     }
 }

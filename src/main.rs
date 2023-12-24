@@ -18,6 +18,7 @@ mod helpers;
 mod services;
 mod traits;
 mod common;
+mod queries;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
