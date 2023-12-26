@@ -2,7 +2,6 @@ use std::sync::Arc;
 use postgres_es::PostgresCqrs;
 use sqlx::{Pool, Postgres};
 use crate::config::trait_config::{IConfig};
-use crate::domain::aggregate::AggStaff;
 
 #[derive(Debug)]
 pub struct Config {

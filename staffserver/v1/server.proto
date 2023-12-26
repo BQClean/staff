@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+// buf:lint:ignore PACKAGE_DIRECTORY_MATCH
+package staffserver.v1;
+
+service StaffServerService{
+  rpc GetStaffById(GetStaffByIdRequest)returns(GetStaffByIdResponse);
+}
+
+message GetStaffByIdRequest {
+  string  id = 1;
+}
+
+message GetStaffByIdResponse{
+  google.protobuf.Timestamp create_at = 1;
+}
+

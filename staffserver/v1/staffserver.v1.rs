@@ -1,22 +1,25 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StaffQueryRequest {
+pub struct GetStaffByIdRequest {
     #[prost(string, tag = "1")]
     pub id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StaffQueryResponse {}
+pub struct GetStaffByIdResponse {
+    #[prost(message, optional, tag = "1")]
+    pub create_at: ::core::option::Option<::prost_types::Timestamp>,
+}
 /// Generated client implementations.
-pub mod staff_service_client {
+pub mod staff_server_service_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
     #[derive(Debug, Clone)]
-    pub struct StaffServiceClient<T> {
+    pub struct StaffServerServiceClient<T> {
         inner: tonic::client::Grpc<T>,
     }
-    impl StaffServiceClient<tonic::transport::Channel> {
+    impl StaffServerServiceClient<tonic::transport::Channel> {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
@@ -27,7 +30,7 @@ pub mod staff_service_client {
             Ok(Self::new(conn))
         }
     }
-    impl<T> StaffServiceClient<T>
+    impl<T> StaffServerServiceClient<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
@@ -45,7 +48,7 @@ pub mod staff_service_client {
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> StaffServiceClient<InterceptedService<T, F>>
+        ) -> StaffServerServiceClient<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
@@ -59,7 +62,7 @@ pub mod staff_service_client {
                 http::Request<tonic::body::BoxBody>,
             >>::Error: Into<StdError> + Send + Sync,
         {
-            StaffServiceClient::new(InterceptedService::new(inner, interceptor))
+            StaffServerServiceClient::new(InterceptedService::new(inner, interceptor))
         }
         /// Compress requests with the given encoding.
         ///
@@ -94,9 +97,9 @@ pub mod staff_service_client {
         }
         pub async fn get_staff_by_id(
             &mut self,
-            request: impl tonic::IntoRequest<super::StaffQueryRequest>,
+            request: impl tonic::IntoRequest<super::GetStaffByIdRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::StaffQueryResponse>,
+            tonic::Response<super::GetStaffByIdResponse>,
             tonic::Status,
         > {
             self.inner
@@ -110,32 +113,34 @@ pub mod staff_service_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/staff_service.StaffService/GetStaffById",
+                "/staffserver.v1.StaffServerService/GetStaffById",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("staff_service.StaffService", "GetStaffById"));
+                .insert(
+                    GrpcMethod::new("staffserver.v1.StaffServerService", "GetStaffById"),
+                );
             self.inner.unary(req, path, codec).await
         }
     }
 }
 /// Generated server implementations.
-pub mod staff_service_server {
+pub mod staff_server_service_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with StaffServiceServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with StaffServerServiceServer.
     #[async_trait]
-    pub trait StaffService: Send + Sync + 'static {
+    pub trait StaffServerService: Send + Sync + 'static {
         async fn get_staff_by_id(
             &self,
-            request: tonic::Request<super::StaffQueryRequest>,
+            request: tonic::Request<super::GetStaffByIdRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::StaffQueryResponse>,
+            tonic::Response<super::GetStaffByIdResponse>,
             tonic::Status,
         >;
     }
     #[derive(Debug)]
-    pub struct StaffServiceServer<T: StaffService> {
+    pub struct StaffServerServiceServer<T: StaffServerService> {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
@@ -143,7 +148,7 @@ pub mod staff_service_server {
         max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
-    impl<T: StaffService> StaffServiceServer<T> {
+    impl<T: StaffServerService> StaffServerServiceServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -195,9 +200,9 @@ pub mod staff_service_server {
             self
         }
     }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for StaffServiceServer<T>
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for StaffServerServiceServer<T>
     where
-        T: StaffService,
+        T: StaffServerService,
         B: Body + Send + 'static,
         B::Error: Into<StdError> + Send + 'static,
     {
@@ -213,25 +218,26 @@ pub mod staff_service_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/staff_service.StaffService/GetStaffById" => {
+                "/staffserver.v1.StaffServerService/GetStaffById" => {
                     #[allow(non_camel_case_types)]
-                    struct GetStaffByIdSvc<T: StaffService>(pub Arc<T>);
+                    struct GetStaffByIdSvc<T: StaffServerService>(pub Arc<T>);
                     impl<
-                        T: StaffService,
-                    > tonic::server::UnaryService<super::StaffQueryRequest>
+                        T: StaffServerService,
+                    > tonic::server::UnaryService<super::GetStaffByIdRequest>
                     for GetStaffByIdSvc<T> {
-                        type Response = super::StaffQueryResponse;
+                        type Response = super::GetStaffByIdResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::StaffQueryRequest>,
+                            request: tonic::Request<super::GetStaffByIdRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as StaffService>::get_staff_by_id(&inner, request).await
+                                <T as StaffServerService>::get_staff_by_id(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -274,7 +280,7 @@ pub mod staff_service_server {
             }
         }
     }
-    impl<T: StaffService> Clone for StaffServiceServer<T> {
+    impl<T: StaffServerService> Clone for StaffServerServiceServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -286,7 +292,7 @@ pub mod staff_service_server {
             }
         }
     }
-    impl<T: StaffService> Clone for _Inner<T> {
+    impl<T: StaffServerService> Clone for _Inner<T> {
         fn clone(&self) -> Self {
             Self(Arc::clone(&self.0))
         }
@@ -296,7 +302,8 @@ pub mod staff_service_server {
             write!(f, "{:?}", self.0)
         }
     }
-    impl<T: StaffService> tonic::server::NamedService for StaffServiceServer<T> {
-        const NAME: &'static str = "staff_service.StaffService";
+    impl<T: StaffServerService> tonic::server::NamedService
+    for StaffServerServiceServer<T> {
+        const NAME: &'static str = "staffserver.v1.StaffServerService";
     }
 }

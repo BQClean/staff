@@ -37,7 +37,7 @@ tonic-build = "0.10.2"
 
 
 [package.metadata.profile.dev]
-tonic = {path= "./proto"}
+tonic = {path= "staffserver" }
 
 [dependencies.sea-orm-migration]
 version = "0.12.0"
