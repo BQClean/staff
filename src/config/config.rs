@@ -48,7 +48,6 @@ impl IConfig for Config {
                        self.event_store_name, self.event_store_schema);
     }
     fn get_service_address(&self) -> String {
-         format!("{}:{}",self.service_host,self.service_port)
+        format!("{}:{}",self.service_host,self.service_port)
     }
-
 }

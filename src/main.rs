@@ -24,6 +24,10 @@ mod traits;
 mod common;
 mod queries;
 
+pub mod pbstaff{
+    include!("../staffserver/v1/staffserver.v1.rs");
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cfg = Config::default();
@@ -37,10 +41,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let service_address = cfg.get_service_address();
 
-
-
-
-
    Ok(())
 }
 fn signal_channel()->(Sender<()>,Receiver<()>){
@@ -48,7 +48,7 @@ fn signal_channel()->(Sender<()>,Receiver<()>){
 }
 async fn wait_for_sigterm(tx:Sender<()>){
     let _ = signal(SignalKind::terminate())
-        .expect("faild to install signal handler")
+        .expect("failed to install signal handler")
         .recv().await;
 
 
