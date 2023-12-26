@@ -1,1 +1,1 @@
-mod handler;
+include!("handler.rs");
