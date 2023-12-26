@@ -126,6 +126,9 @@ impl AggStaff {
                     cn.contact_type_id=con.contact_type_id.to_string();
                     cn.staff_id=con.staff_id.to_string();
                     cn.operation=ops(con);
+                },
+                None => {
+                    continue
                 }
             }
         }
