@@ -2,7 +2,12 @@
 #![allow(dead_code)]
 #![allow(unused_imports)]
 
+
+
 use sea_orm_migration::MigratorTrait;
+use tokio::signal::unix::{signal, SignalKind};
+use tokio::sync::oneshot;
+use tokio::sync::oneshot::{Receiver, Sender};
 use crate::config::config::Config;
 use config::trait_config::IConfig;
 use crate::infrastructure::repository::connect::data_connection::DBConnection;
@@ -12,7 +17,6 @@ mod adapters;
 mod application;
 mod config;
 mod domain;
-mod entities;
 mod infrastructure;
 mod helpers;
 mod services;
@@ -30,5 +34,25 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Ok(db)=>db,
         Err(err)=>panic!("{}",err)
     };
+
+    let service_address = cfg.get_service_address();
+
+
+
+
+
    Ok(())
+}
+fn signal_channel()->(Sender<()>,Receiver<()>){
+ oneshot::channel()
+}
+async fn wait_for_sigterm(tx:Sender<()>){
+    let _ = signal(SignalKind::terminate())
+        .expect("faild to install signal handler")
+        .recv().await;
+
+
+    println!("SIGTERM received : shutting down");
+
+    let _ = tx.send(());
 }
