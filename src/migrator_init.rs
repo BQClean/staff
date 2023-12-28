@@ -1,14 +1,20 @@
 use sea_orm_migration::{MigratorTrait};
-use crate::config::config::{Config};
 use crate::infrastructure::repository::connect::data_connection::{DBConnection};
 use crate::infrastructure::repository::connect::trait_connection::{TConnection};
 use crate::migrator::{Migrator};
-use crate::config::trait_config::{IConfig};
+
+use crate::config::config::Config;
+use traits::trait_config::IConfig;
 
 
 mod config;
 mod infrastructure;
 mod migrator;
+
+mod traits;
+mod domain;
+mod helpers;
+mod services;
 
 #[tokio::main]
 async fn main()-> Result<(), Box<dyn std::error::Error>>{

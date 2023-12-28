@@ -1,5 +1,6 @@
 use async_trait::async_trait;
-use crate::domain::commands::{CmdAddress, CmdContact};
+use crate::domain::commands::{CmdAddress, CmdContact, CmdStaff};
+use crate::domain::events::StaffError;
 
 #[async_trait]
 pub trait  IStaffService:Sync + Send {

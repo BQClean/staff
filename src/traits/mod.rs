@@ -1,3 +1,6 @@
-use crate::domain::commands::CmdStaff;
-use crate::domain::events::StaffError;
-include!("service_staff.rs");
+pub mod trait_config;
+pub mod service_staff;
+
+
+
+

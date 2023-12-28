@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 use crate::domain::commands::{CmdAddress, CmdContact, CmdStaff};
 use crate::domain::events::StaffError;
-use crate::traits::IStaffService;
+use crate::traits::service_staff::IStaffService;
 use validator::{Validate, ValidationError};
 
 pub struct StaffService {}

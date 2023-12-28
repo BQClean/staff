@@ -1,7 +1,7 @@
 use std::sync::Arc;
 use postgres_es::PostgresCqrs;
 use sqlx::{Pool, Postgres};
-use crate::config::trait_config::{IConfig};
+use crate::traits::trait_config::{IConfig};
 
 #[derive(Debug)]
 pub struct Config<'a> {
@@ -41,7 +41,7 @@ impl<'a> Default for Config<'a> {
             kafka_security_protocol: "SASL_SSL",
             kafka_sasl_username: "cG9saXNoZWQtc2NvcnBpb24tMTE0NTMkIitTf9YL3Uuuf_vShTbeEJ6mgfSR-DU",
             kafka_sasl_password: "YzI3NGYxNzQtZDU5ZS00NjliLWJjYTctODRhYzcxMGFjYzAy",
-            kafka_group_id: "racing_worker",
+            kafka_group_id: "staff_worker",
         };
     }
 }
@@ -64,8 +64,22 @@ impl<'a> IConfig for Config<'a> {
     fn get_service_address(&self) -> String {
         format!("{}:{}", self.service_host, self.service_port)
     }
-
     fn get_kafka_bootstrap_server(&self)->&str{
         self.kafka_bootstrap_server
+    }
+    fn get_kafka_ssl_mechanism(&self)->&str{
+        self.kafka_ssl_mechanism
+    }
+    fn get_kafka_security_protocol(&self) -> &str {
+        self.kafka_security_protocol
+    }
+    fn get_kafka_sasl_username(&self) -> &str {
+        self.kafka_sasl_username
+    }
+    fn get_kafka_sasl_password(&self) -> &str {
+       self.kafka_sasl_password
+    }
+    fn get_kafka_group_id(&self) -> &str {
+       self.kafka_group_id
     }
 }

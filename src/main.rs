@@ -11,7 +11,7 @@ use tokio::sync::oneshot;
 use tokio::sync::oneshot::{Receiver, Sender};
 use tonic::transport::Server;
 use crate::config::config::Config;
-use config::trait_config::IConfig;
+use traits::trait_config::IConfig;
 use crate::infrastructure::repository::connect::data_connection::DBConnection;
 use infrastructure::repository::connect::trait_connection::TConnection;
 use crate::application::api::{StaffServiceApi};
@@ -27,6 +27,7 @@ mod services;
 mod traits;
 mod common;
 mod queries;
+
 
 pub mod pbstaff{
     include!("../staffserver/v1/staffserver.v1.rs");
