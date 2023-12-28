@@ -14,17 +14,15 @@ pub struct Config<'a> {
     event_store_schema: String,
     service_host: String,
     service_port: String,
-
-    kafka_bootstrap_server:&'a str,
-    kafka_ssl_mechanism:&'a str,
+    kafka_bootstrap_server: &'a str,
+    kafka_ssl_mechanism: &'a str,
     kafka_security_protocol: &'a str,
     kafka_sasl_username: &'a str,
     kafka_sasl_password: &'a str,
-    kafka_group_id: & 'a str
-
+    kafka_group_id: &'a str,
 }
 
-impl <'a>Default for Config<'a> {
+impl<'a> Default for Config<'a> {
     fn default() -> Self {
         return Config {
             database_host: "localhost".to_string(),
@@ -32,6 +30,7 @@ impl <'a>Default for Config<'a> {
             database_password: "root".to_string(),
             database_name: "cleanx".to_string(),
             database_schema: "cleanx_staff".to_string(),
+
             event_store_name: "event_store".to_string(),
             event_store_schema: "staff_store".to_string(),
             service_host: "127.0.0.1".to_string(),
@@ -47,7 +46,7 @@ impl <'a>Default for Config<'a> {
     }
 }
 
-impl <'a>IConfig for Config<'a> {
+impl<'a> IConfig for Config<'a> {
     fn get_dbconnection(&self) -> String {
         return format!("postgres://{}:{}@{}/{}?currentSchema={}",
                        self.database_username,
@@ -63,6 +62,10 @@ impl <'a>IConfig for Config<'a> {
                        self.event_store_name, self.event_store_schema);
     }
     fn get_service_address(&self) -> String {
-        format!("{}:{}",self.service_host,self.service_port)
+        format!("{}:{}", self.service_host, self.service_port)
+    }
+
+    fn get_kafka_bootstrap_server(&self)->&str{
+        self.kafka_bootstrap_server
     }
 }
