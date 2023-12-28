@@ -12,10 +12,14 @@ impl StaffServiceApi{
     }
 }
 
+#[tonic::async_trait]
 impl StaffServerService for StaffServiceApi{
-    async fn get_staff_by_id(
-        &self,
-        request: Request<GetStaffByIdRequest>) -> Result<Response<GetStaffByIdResponse>, Status> {
-        todo!()
+    async fn get_staff_by_id(&self, request: Request<GetStaffByIdRequest>)
+        -> Result<Response<GetStaffByIdResponse>, Status> {
+        let req = request.get_ref();
+
+        Ok(Response::new(GetStaffByIdResponse{
+            create_at:None
+        }))
     }
 }
