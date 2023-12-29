@@ -14,7 +14,6 @@ use crate::services::svc_staff::StaffService;
 use crate::traits::trait_staff::IStaffService;
 
 
-#[async_trait]
 impl Aggregate for AggStaff {
     type Command = CommandsStaff;
     type Event = StaffEvent;

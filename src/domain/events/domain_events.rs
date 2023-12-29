@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize, Serializer};
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct CommonEvent<T> {
-    pub corelation_id: String,
+    pub co_relation_id: String,
     pub data: T,
     pub recv_timestamp: DateTime<Utc>,
 }

@@ -22,7 +22,6 @@ chrono = "0.4.31"
 rdkafka = {version = "0.36.0",features = ["ssl","default"]}
 grade = "0.3.0"
 config="0.13.3"
-async-trait ="0.1.74"
 uuid = { version = "1.5.0", features = ["v4"] }
 cqrs-es = "0.4.10"
 postgres-es = "0.4.10"
