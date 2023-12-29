@@ -1,5 +1,6 @@
 pub mod trait_config;
-pub mod service_staff;
+pub mod trait_staff;
+pub mod trait_kafka;
 
 
 

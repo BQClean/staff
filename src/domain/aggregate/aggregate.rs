@@ -11,7 +11,7 @@ use crate::domain::events::{CommonEvent,
                             EventContact};
 use crate::services::svc_staff;
 use crate::services::svc_staff::StaffService;
-use crate::traits::service_staff::IStaffService;
+use crate::traits::trait_staff::IStaffService;
 
 
 #[async_trait]

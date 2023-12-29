@@ -20,6 +20,7 @@ pub struct Config<'a> {
     kafka_sasl_username: &'a str,
     kafka_sasl_password: &'a str,
     kafka_group_id: &'a str,
+    kafka_staff_consumer_group:&'a str
 }
 
 impl<'a> Default for Config<'a> {
@@ -42,6 +43,7 @@ impl<'a> Default for Config<'a> {
             kafka_sasl_username: "cG9saXNoZWQtc2NvcnBpb24tMTE0NTMkIitTf9YL3Uuuf_vShTbeEJ6mgfSR-DU",
             kafka_sasl_password: "YzI3NGYxNzQtZDU5ZS00NjliLWJjYTctODRhYzcxMGFjYzAy",
             kafka_group_id: "staff_worker",
+            kafka_staff_consumer_group:"staff"
         };
     }
 }
@@ -81,5 +83,8 @@ impl<'a> IConfig for Config<'a> {
     }
     fn get_kafka_group_id(&self) -> &str {
        self.kafka_group_id
+    }
+    fn get_kafka_staff_consumer_group(&self) -> &str {
+        self.kafka_staff_consumer_group
     }
 }

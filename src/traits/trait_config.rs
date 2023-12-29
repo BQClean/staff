@@ -8,4 +8,5 @@ pub trait IConfig {
     fn get_kafka_sasl_username(&self)->&str;
     fn get_kafka_sasl_password(&self)->&str;
     fn get_kafka_group_id(&self)->&str;
+    fn get_kafka_staff_consumer_group(&self) -> &str;
 }
