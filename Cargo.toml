@@ -14,7 +14,7 @@ futures = "0.3.29"
 clap = "4.4.8"
 tonic-reflection = "0.10.2"
 prost-types = "0.12.1"
-serde = {version = "1.0.192",features = ["derive"]}
+serde = {version = "1.0.193",features = ["derive"]}
 serde_json = "1.0.108"
 erased-serde = "0.4.1"
 sea-orm = {version = "0.12.6",features = ["sqlx-postgres","runtime-tokio-native-tls","macros"]}
