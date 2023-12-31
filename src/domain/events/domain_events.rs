@@ -3,6 +3,7 @@ use chrono::{DateTime, Utc};
 use cqrs_es::DomainEvent;
 use serde::{Deserialize, Serialize, Serializer};
 
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct CommonEvent<T> {
     pub co_relation_id: String,
