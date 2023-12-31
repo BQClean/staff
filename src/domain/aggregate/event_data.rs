@@ -1,3 +1,6 @@
+
+use comentities::staff::events::EventStaff;
+
 impl AggStaff {
     pub(crate) fn process_staff_created_event(
         &mut self,

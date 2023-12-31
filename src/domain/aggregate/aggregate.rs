@@ -1,18 +1,14 @@
-use async_trait::async_trait;
+
 use cqrs_es::Aggregate;
 use serde::{Deserialize, Serialize};
-use crate::domain::commands::{CommandsStaff, CmdStaff};
 use crate::domain::entities::{EntityAddress, EntityContract};
 use crate::domain::events::{CommonEvent,
                             StaffError,
-                            StaffEvent,
-                            EventStaff,
-                            EventAddress,
-                            EventContact};
+                            StaffEvent};
 use crate::services::svc_staff;
 use crate::services::svc_staff::StaffService;
 use crate::traits::trait_staff::IStaffService;
-
+use comentities::staff::commands::{CommandsStaff};
 
 impl Aggregate for AggStaff {
     type Command = CommandsStaff;

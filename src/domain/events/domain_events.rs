@@ -2,14 +2,9 @@ use std::fmt::{Display, Formatter};
 use chrono::{DateTime, Utc};
 use cqrs_es::DomainEvent;
 use serde::{Deserialize, Serialize, Serializer};
+use comentities::staff::events::EventStaff;
+use comentities::common::com_event::CommonEvent;
 
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct CommonEvent<T> {
-    pub co_relation_id: String,
-    pub data: T,
-    pub recv_timestamp: DateTime<Utc>,
-}
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub enum StaffEvent {
