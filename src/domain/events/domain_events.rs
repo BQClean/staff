@@ -1,7 +1,6 @@
 use std::fmt::{Display, Formatter};
-use chrono::{DateTime, Utc};
 use cqrs_es::DomainEvent;
-use serde::{Deserialize, Serialize, Serializer};
+use serde::{Deserialize, Serialize};
 use comentities::staff::events::EventRootStaff;
 use comentities::common::com_event::CommonEvent;
 

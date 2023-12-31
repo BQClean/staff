@@ -1,14 +1,13 @@
 
 use cqrs_es::Aggregate;
 use serde::{Deserialize, Serialize};
-use crate::domain::entities::{EntityAddress, EntityContract};
-use crate::domain::events::{CommonEvent,
-                            StaffError,
+use crate::domain::events::{StaffError,
                             StaffEvent};
-use crate::services::svc_staff;
+
 use crate::services::svc_staff::StaffService;
-use crate::traits::trait_staff::IStaffService;
 use comentities::staff::commands::{CommandsStaff};
+use comentities::common::com_event::{CommonEvent};
+use crate::traits::trait_staff::IStaffService;
 
 impl Aggregate for AggStaff {
     type Command = CommandsStaff;
@@ -32,7 +31,7 @@ impl Aggregate for AggStaff {
                     Ok(_)=>{
                         self.create_staff_match(&data, id, recv_timestamp).await
                     }
-                    Err(e)=> return Err(StaffError("error in staff validation".to_string()))
+                    Err(_e)=> return Err(StaffError("error in staff validation".to_string()))
                 }
             }
             CommandsStaff::UpdateStaff {
@@ -46,7 +45,7 @@ impl Aggregate for AggStaff {
                     Ok(_)=>{
                         self.update_staff_match(&data, id, recv_timestamp).await
                     }
-                    Err(e)=> return Err(StaffError("error in staff validation".to_string()))
+                    Err(_e)=> return Err(StaffError("error in staff validation".to_string()))
                 }
             }
             CommandsStaff::CreateAddress {
@@ -60,7 +59,7 @@ impl Aggregate for AggStaff {
                     Ok(_)=>{
                         self.create_address_match(&data, id, recv_timestamp).await
                     }
-                    Err(e)=> return Err(StaffError("error in address validation".to_string()))
+                    Err(_e)=> return Err(StaffError("error in address validation".to_string()))
                 }
             }
 
@@ -75,7 +74,7 @@ impl Aggregate for AggStaff {
                     Ok(_)=>{
                         self.update_address_match(&data, id, recv_timestamp).await
                     }
-                    Err(e)=> return Err(StaffError("error in address validation".to_string()))
+                    Err(_e)=> return Err(StaffError("error in address validation".to_string()))
                 }
             }
             CommandsStaff::CreateContact {
@@ -89,7 +88,7 @@ impl Aggregate for AggStaff {
                     Ok(_)=>{
                         self.create_contact_match(&data, id, recv_timestamp).await
                     }
-                    Err(e)=> return Err(StaffError("error in contact validation".to_string()))
+                    Err(_e)=> return Err(StaffError("error in contact validation".to_string()))
                 }
             }
             CommandsStaff::UpdateContact {
@@ -103,7 +102,7 @@ impl Aggregate for AggStaff {
                     Ok(_)=>{
                         self.update_contact_match(&data, id, recv_timestamp).await
                     }
-                    Err(e)=> return Err(StaffError("error in contact validation".to_string()))
+                    Err(_e)=> return Err(StaffError("error in contact validation".to_string()))
                 }
             }
         }

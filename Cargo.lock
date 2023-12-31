@@ -469,7 +469,7 @@ checksum = "acbf1af155f9b9ef647e42cdc158db4b64a1b61f743629225fde6f3e0be2a7c7"
 [[package]]
 name = "comentities"
 version = "0.1.0"
-source = "git+https://github.com/QuibClean/comentities#8d184a0f451a20649f802efd4748c5be847a62bc"
+source = "git+https://github.com/QuibClean/comentities#fe7e5a34cc18d3c066e8592a0c7e9a9d9a2d7cde"
 dependencies = [
  "chrono",
  "erased-serde",

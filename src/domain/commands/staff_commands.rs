@@ -1,7 +1,4 @@
-use serde::Deserialize;
-use crate::domain::common;
 use crate::domain::common::{AddressIn, ContactIn, StaffActiveIn, StaffIn};
-use validator::{Validate, ValidationError};
 use comentities::staff::commands::{CmdRootStaff,CmdStaffActive,CmdStaffContact,CmdStaffAddress};
 
 impl StaffIn for CmdRootStaff {

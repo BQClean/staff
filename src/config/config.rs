@@ -1,6 +1,3 @@
-use std::sync::Arc;
-use postgres_es::PostgresCqrs;
-use sqlx::{Pool, Postgres};
 use crate::traits::trait_config::{IConfig};
 
 #[derive(Debug)]

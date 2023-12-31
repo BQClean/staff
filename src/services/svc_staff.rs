@@ -1,12 +1,12 @@
 use comentities::staff::commands::{CmdStaffAddress, CmdStaffContact, CmdRootStaff};
 use crate::domain::events::StaffError;
 use crate::traits::trait_staff::IStaffService;
-use validator::{Validate, ValidationError};
+use validator::{Validate};
 
 pub struct StaffService {}
 
 impl StaffService{
-    pub fn new()-> Box<dyn IStaffService> {
+    pub fn new()-> Box<Self> {
         let x = Box::new(StaffService {});
         return x
     }
@@ -21,7 +21,7 @@ impl IStaffService for StaffService {
             Some(ref stf) => {
                 match stf.validate() {
                     Ok(_) => (),
-                    Err(e) => return Err(StaffError("error in staff validation".to_string())),
+                    Err(_e) => return Err(StaffError("error in staff validation".to_string())),
                 }
             }
             None => {
@@ -39,7 +39,7 @@ impl IStaffService for StaffService {
             Some(ref address)=>{
                 match address.validate() {
                     Ok(_)=>(),
-                    Err(e)=> return Err(StaffError("address is in invalid state".to_string()))
+                    Err(_e)=> return Err(StaffError("address is in invalid state".to_string()))
                 }
             }
             None=>{
@@ -57,7 +57,7 @@ impl IStaffService for StaffService {
             Some(ref cont )=>{
                 match cont.validate() {
                     Ok(_)=>(),
-                    Err(e)=> return Err(StaffError("contact is  in invalid state".to_string()))
+                    Err(_e)=> return Err(StaffError("contact is  in invalid state".to_string()))
                 }
             }
             None=>{
