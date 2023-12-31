@@ -2,7 +2,7 @@ use chrono::{DateTime, Utc};
 
 impl AggStaff {
    pub(crate) async fn create_staff_match(&self,
-                                           data: &CmdStaff,
+                                           data: &CmdRootStaff,
                                            id: String,
                                            recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_staff_event(Box::new(Some(data)));
@@ -21,7 +21,7 @@ impl AggStaff {
         }
     }
     pub(crate) async fn update_staff_match(&self,
-                                           data: &CmdStaff,
+                                           data: &CmdRootStaff,
                                            id: String,
                                            recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_staff_event(Box::new(Some(data)));
@@ -40,7 +40,7 @@ impl AggStaff {
     }
 
     pub(crate) async fn create_address_match(&self,
-                                             data: &CmdAddress,
+                                             data: &CmdStaffAddress,
                                              id: String,
                                              recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_address_event(Box::new(Some(data)));
@@ -59,7 +59,7 @@ impl AggStaff {
     }
 
     pub(crate) async fn update_address_match(&self,
-                                             data: &CmdAddress,
+                                             data: &CmdStaffAddress,
                                              id: String,
                                              recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_address_event(Box::new(Some(data)));
@@ -78,7 +78,7 @@ impl AggStaff {
     }
 
     pub(crate) async fn create_contact_match(&self,
-                                             data: &CmdContact,
+                                             data: &CmdStaffContact,
                                              id: String,
                                              recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_contact_event(Box::new(Some(data)));
@@ -97,7 +97,7 @@ impl AggStaff {
     }
 
     pub(crate) async fn update_contact_match(&self,
-                                             data: &CmdContact,
+                                             data: &CmdStaffContact,
                                              id: String,
                                              recv_timestamp: DateTime<Utc>) -> Result<Vec<StaffEvent>, StaffError> {
         let staff_val = self.get_contact_event(Box::new(Some(data)));

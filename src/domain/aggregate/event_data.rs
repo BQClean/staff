@@ -1,10 +1,10 @@
 
-use comentities::staff::events::EventStaff;
+use comentities::staff::events::{EventRootStaff, EventStaffAddress, EventStaffContact};
 
 impl AggStaff {
     pub(crate) fn process_staff_created_event(
         &mut self,
-        event: &CommonEvent<EventStaff>) {
+        event: &CommonEvent<EventRootStaff>) {
         self.id = event.data.id.to_string();
         self.driver_license = event.data.driver_license.to_string();
         self.last_name = event.data.last_name.to_string();
@@ -16,7 +16,7 @@ impl AggStaff {
 
     pub(crate) fn process_staff_updated_event(
         &mut self,
-        event: &CommonEvent<EventStaff>) {
+        event: &CommonEvent<EventRootStaff>) {
         self.id = event.data.id.to_string();
         self.driver_license = event.data.driver_license.to_string();
         self.last_name = event.data.last_name.to_string();
@@ -28,9 +28,9 @@ impl AggStaff {
 
     pub(crate) fn process_address_created_event(
         &mut self,
-        event: &CommonEvent<EventStaff>) {
+        event: &CommonEvent<EventRootStaff>) {
         for add in event.data.address.iter() {
-            let ops = |ad: &EventAddress| -> Operation {
+            let ops = |ad: &EventStaffAddress| -> Operation {
                 match ad.operation {
                     Operation::On => Operation::On,
                     Operation::Off => Operation::Off,
@@ -54,8 +54,8 @@ impl AggStaff {
 
     pub(crate) fn process_address_updated_event(
         &mut self,
-        event: &CommonEvent<EventStaff>) {
-        let ops = |ad: &EventAddress| -> Operation {
+        event: &CommonEvent<EventRootStaff>) {
+        let ops = |ad: &EventStaffAddress| -> Operation {
             match ad.operation {
                 Operation::On => Operation::On,
                 Operation::Off => Operation::Off,
@@ -86,8 +86,8 @@ impl AggStaff {
 
     pub(crate) fn process_contact_created_event(
         &mut self,
-        event: &CommonEvent<EventStaff>) {
-        let ops = |cn: &EventContact| -> Operation {
+        event: &CommonEvent<EventRootStaff>) {
+        let ops = |cn: &EventStaffContact| -> Operation {
             match cn.operation {
                 Operation::On => Operation::On,
                 Operation::Off => Operation::Off,
@@ -110,8 +110,8 @@ impl AggStaff {
 
     pub(crate) fn process_contact_updated_event(
         &mut self,
-        event: &CommonEvent<EventStaff>) {
-        let ops = |cn: &EventContact| -> Operation {
+        event: &CommonEvent<EventRootStaff>) {
+        let ops = |cn: &EventStaffContact| -> Operation {
             match cn.operation {
                 Operation::On => Operation::On,
                 Operation::Off => Operation::Off,

@@ -13,7 +13,7 @@ use tonic::transport::Server;
 use crate::config::config::Config;
 use traits::trait_config::IConfig;
 use crate::infrastructure::repository::connect::data_connection::DBConnection;
-use infrastructure::repository::connect::trait_connection::TConnection;
+use traits::trait_connection::TConnection;
 use crate::application::api::{StaffServiceApi};
 use crate::pbstaff::staff_server_service_server::StaffServerServiceServer;
 

@@ -1,4 +1,5 @@
 use crate::domain::common::{AddressIn, ContactIn, StaffIn};
+use comentities::staff::common::Operation;
 
 #[derive(Deserialize, Serialize, Clone)]
 pub struct AggStaff {

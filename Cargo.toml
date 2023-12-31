@@ -27,6 +27,7 @@ cqrs-es = "0.4.10"
 postgres-es = "0.4.10"
 validator = {version = "0.16.1",features = ["derive"]}
 sqlx ={version = "0.7.3",features = ["postgres","runtime-tokio-rustls","json"]}
+
 comentities = {git = "https://github.com/QuibClean/comentities",features = ["staff"]}
 
 

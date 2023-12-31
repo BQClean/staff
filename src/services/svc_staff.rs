@@ -1,4 +1,4 @@
-use crate::domain::commands::{CmdAddress, CmdContact, CmdStaff};
+use comentities::staff::commands::{CmdStaffAddress, CmdStaffContact, CmdRootStaff};
 use crate::domain::events::StaffError;
 use crate::traits::trait_staff::IStaffService;
 use validator::{Validate, ValidationError};
@@ -14,7 +14,7 @@ impl StaffService{
 
 
 impl IStaffService for StaffService {
-    async fn validate_staff(&self, command: Box<Option<&CmdStaff>>)
+    async fn validate_staff(&self, command: Box<Option<&CmdRootStaff>>)
         -> Result<(), StaffError> {
         let staff= command.as_ref();
         match staff {
@@ -32,7 +32,7 @@ impl IStaffService for StaffService {
         Ok(())
     }
 
-    async fn validate_address(&self, command: Box<Option<&CmdAddress>>)
+    async fn validate_address(&self, command: Box<Option<&CmdStaffAddress>>)
         -> Result<(), StaffError> {
         let address= command.as_ref();
         match address {
@@ -50,7 +50,7 @@ impl IStaffService for StaffService {
         Ok(())
     }
 
-    async fn validate_contact(&self, command: Box<Option<&CmdContact>>)
+    async fn validate_contact(&self, command: Box<Option<&CmdStaffContact>>)
         -> Result<(), StaffError> {
        let contacts =command.as_ref();
         match contacts {

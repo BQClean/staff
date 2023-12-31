@@ -2,18 +2,18 @@ use std::fmt::{Display, Formatter};
 use chrono::{DateTime, Utc};
 use cqrs_es::DomainEvent;
 use serde::{Deserialize, Serialize, Serializer};
-use comentities::staff::events::EventStaff;
+use comentities::staff::events::EventRootStaff;
 use comentities::common::com_event::CommonEvent;
 
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub enum StaffEvent {
-    StaffCreated(CommonEvent<EventStaff>),
-    StaffUpdated(CommonEvent<EventStaff>),
-    AddressCreated(CommonEvent<EventStaff>),
-    AddressUpdated(CommonEvent<EventStaff>),
-    ContactCreated(CommonEvent<EventStaff>),
-    ContactUpdated(CommonEvent<EventStaff>),
+    StaffCreated(CommonEvent<EventRootStaff>),
+    StaffUpdated(CommonEvent<EventRootStaff>),
+    AddressCreated(CommonEvent<EventRootStaff>),
+    AddressUpdated(CommonEvent<EventRootStaff>),
+    ContactCreated(CommonEvent<EventRootStaff>),
+    ContactUpdated(CommonEvent<EventRootStaff>),
 }
 
 impl DomainEvent for StaffEvent {

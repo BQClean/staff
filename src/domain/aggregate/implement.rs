@@ -1,20 +1,21 @@
 use std::ops::Add;
 use std::option::Option;
 use crate::domain::common;
-use crate::domain::common::EntityType;
+use comentities::staff::common::EntityType;
 use std::any::Any;
-use crate::domain::commands::{CmdAddress, CmdContact};
+use comentities::staff::commands::{CmdStaffAddress, CmdStaffContact,CmdRootStaff};
+
 
 //
 impl AggStaff {
 
-    pub fn get_staff_event(&self, cmd_staff: Box<Option<&CmdStaff>>) -> Option<EventStaff> {
+    pub fn get_staff_event(&self, cmd_staff: Box<Option<&CmdRootStaff>>) -> Option<EventRootStaff> {
         let staff = self.compose_staff(cmd_staff, true);
 
         return staff;
     }
 
-    pub fn get_address_event(&self, cmd_address: Box<Option<&CmdAddress>>) -> Option<EventStaff> {
+    pub fn get_address_event(&self, cmd_address: Box<Option<&CmdStaffAddress>>) -> Option<EventRootStaff> {
         let staff = self.compose_staff(Box::new(None), true);
 
         let address = self.compose_address(cmd_address);
@@ -28,7 +29,7 @@ impl AggStaff {
         return staff;
     }
 
-    pub fn get_contact_event(&self, cmd_contact: Box<Option<&CmdContact>>) -> Option<EventStaff> {
+    pub fn get_contact_event(&self, cmd_contact: Box<Option<&CmdStaffContact>>) -> Option<EventRootStaff> {
         let staff = self.compose_staff(Box::new(None), true);
 
         let contacts = self.compose_contact(cmd_contact);
@@ -41,25 +42,25 @@ impl AggStaff {
         return staff;
     }
 
-    pub(crate) fn get_staff(&self, staff: &dyn StaffIn, staff_only: bool) -> Option<EventStaff> {
-        let address = |staff_only: bool| -> Vec<EventAddress>{
+    pub(crate) fn get_staff(&self, staff: &dyn StaffIn, staff_only: bool) -> Option<EventRootStaff> {
+        let address = |staff_only: bool| -> Vec<EventStaffAddress>{
             if staff_only {
                 return self.compose_address(Box::new(None));
             }
 
-            return Vec::<EventAddress>::new();
+            return Vec::<EventStaffAddress>::new();
         };
 
-        let contact = |staff_only: bool| -> Vec<EventContact>{
+        let contact = |staff_only: bool| -> Vec<EventStaffContact>{
             if staff_only {
                 return self.compose_contact(Box::new(None));
             }
 
-            return Vec::<EventContact>::new();
+            return Vec::<EventStaffContact>::new();
         };
 
 
-        let staff_upd: EventStaff = EventStaff {
+        let staff_upd: EventRootStaff = EventRootStaff {
             id: staff.id().to_string(),
             first_name: staff.first_name().to_string(),
             last_name: staff.last_name().to_string(),
@@ -75,7 +76,7 @@ impl AggStaff {
         return Some(staff_upd);
     }
 
-    pub(crate) fn compose_staff(&self, opt_staff: Box<Option<&CmdStaff>>, staff_only: bool) -> Option<EventStaff> {
+    pub(crate) fn compose_staff(&self, opt_staff: Box<Option<&CmdRootStaff>>, staff_only: bool) -> Option<EventRootStaff> {
         let optional_staff = *opt_staff;
 
         let stf = return match optional_staff {
@@ -92,8 +93,8 @@ impl AggStaff {
         };
     }
 
-    pub(crate) fn get_address(&self, address: &dyn AddressIn) -> EventAddress {
-        let event_address = EventAddress {
+    pub(crate) fn get_address(&self, address: &dyn AddressIn) -> EventStaffAddress {
+        let event_address = EventStaffAddress {
             id: address.id().to_string(),
             street: address.street().to_string(),
             state: address.state().to_string(),
@@ -107,8 +108,8 @@ impl AggStaff {
         return event_address;
     }
 
-    pub(crate) fn compose_address(&self, opt_add: Box<Option<&CmdAddress>>) -> Vec<EventAddress> {
-        let mut address_list: Vec<EventAddress> = Vec::new();
+    pub(crate) fn compose_address(&self, opt_add: Box<Option<&CmdStaffAddress>>) -> Vec<EventStaffAddress> {
+        let mut address_list: Vec<EventStaffAddress> = Vec::new();
 
         let optional_address = *opt_add;
         match optional_address {
@@ -127,8 +128,8 @@ impl AggStaff {
         return address_list;
     }
 
-    pub(crate) fn get_contact(&self, contact: &dyn ContactIn) -> EventContact {
-        let event_contact = EventContact {
+    pub(crate) fn get_contact(&self, contact: &dyn ContactIn) -> EventStaffContact {
+        let event_contact = EventStaffContact {
             id: contact.id().to_string(),
             contact_type_id: contact.contact_type_id().to_string(),
             contact_value: contact.contact_value().to_string(),
@@ -140,8 +141,8 @@ impl AggStaff {
         return event_contact;
     }
 
-    pub(crate) fn compose_contact(&self, opt_con: Box<Option<&CmdContact>>) -> Vec<EventContact> {
-        let mut contacts_list: Vec<EventContact> = Vec::new();
+    pub(crate) fn compose_contact(&self, opt_con: Box<Option<&CmdStaffContact>>) -> Vec<EventStaffContact> {
+        let mut contacts_list: Vec<EventStaffContact> = Vec::new();
 
         let optional_contact = *opt_con;
         match optional_contact {
