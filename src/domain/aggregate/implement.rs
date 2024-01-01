@@ -75,7 +75,7 @@ impl AggStaff {
     pub(crate) fn compose_staff(&self, opt_staff: Box<Option<&CmdRootStaff>>, staff_only: bool) -> Option<EventRootStaff> {
         let optional_staff = *opt_staff;
 
-        let stf = return match optional_staff {
+        return match optional_staff {
             Some(staff) => {
                 let result_staff = self.get_staff(staff, staff_only);
 

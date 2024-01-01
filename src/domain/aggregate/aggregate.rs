@@ -1,4 +1,4 @@
-
+use async_trait::async_trait;
 use cqrs_es::Aggregate;
 use serde::{Deserialize, Serialize};
 use crate::domain::events::{StaffError,
@@ -9,6 +9,7 @@ use comentities::staff::commands::{CommandsStaff};
 use comentities::common::com_event::{CommonEvent};
 use crate::traits::trait_staff::IStaffService;
 
+#[async_trait]
 impl Aggregate for AggStaff {
     type Command = CommandsStaff;
     type Event = StaffEvent;

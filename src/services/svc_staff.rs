@@ -1,3 +1,4 @@
+use async_trait::async_trait;
 use comentities::staff::commands::{CmdStaffAddress, CmdStaffContact, CmdRootStaff};
 use crate::domain::events::StaffError;
 use crate::traits::trait_staff::IStaffService;
@@ -12,7 +13,7 @@ impl StaffService{
     }
 }
 
-
+#[async_trait]
 impl IStaffService for StaffService {
     async fn validate_staff(&self, command: Box<Option<&CmdRootStaff>>)
         -> Result<(), StaffError> {
