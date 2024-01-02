@@ -1,1 +1,1 @@
-mod kafka_messages;
+pub mod kafka_messages;

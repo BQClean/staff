@@ -16,6 +16,8 @@ use crate::infrastructure::repository::connect::data_connection::DBConnection;
 use traits::trait_connection::TConnection;
 use crate::application::api::{StaffServiceApi};
 use crate::pbstaff::staff_server_service_server::StaffServerServiceServer;
+use crate::adapters::messages::kafka_messages::{KafkaMessage};
+use crate::traits::trait_kafka::IKafka;
 
 mod adapters;
 mod application;
@@ -49,6 +51,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let(signal_tx,signal_rx) =signal_channel();
     spawn(wait_for_sigterm(signal_tx));
+
+
+    let kafka=KafkaMessage::new(&cfg);
+    let consumer=kafka.get_consumer();
+
+
+
+
 
     Server::builder().add_service(
         StaffServerServiceServer::new(api_server))
