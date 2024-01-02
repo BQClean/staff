@@ -1,5 +1,7 @@
 use std::sync::Arc;
 use rdkafka::consumer::StreamConsumer;
+use rdkafka::Message;
+use tokio_stream::StreamExt;
 
 use crate::traits::trait_processor::{IMessageProcessor};
 
@@ -12,6 +14,10 @@ impl Handler{
 
 impl IMessageProcessor for Handler{
     async fn handler(consumer: StreamConsumer) {
-        todo!()
+       while let Some(Ok(msg))=consumer.stream().next().await{
+            if let Some(Ok(data))=msg.payload_view::<str>(){
+                println!("{:?}",data)
+            }
+       }
     }
 }
