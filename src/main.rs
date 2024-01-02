@@ -3,7 +3,7 @@
 #![allow(unused_imports)]
 
 
-
+use rdkafka::consumer::Consumer;
 use sea_orm_migration::MigratorTrait;
 use tokio::signal::unix::{signal, SignalKind};
 use tokio::spawn;
@@ -18,6 +18,8 @@ use crate::application::api::{StaffServiceApi};
 use crate::pbstaff::staff_server_service_server::StaffServerServiceServer;
 use crate::adapters::messages::kafka_messages::{KafkaMessage};
 use crate::traits::trait_kafka::IKafka;
+use crate::infrastructure::processor::command_processor::{ProcessHandler};
+use crate::traits::trait_processor::IMessageProcessor;
 
 mod adapters;
 mod application;
@@ -53,18 +55,23 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     spawn(wait_for_sigterm(signal_tx));
 
 
-    let kafka=KafkaMessage::new(&cfg);
-    let consumer=kafka.get_consumer();
+    let consumer_task =tokio::spawn(async {
+        let kafka=KafkaMessage::new(&cfg);
+        let consumer=kafka.get_consumer();
+        let handlerProcess = ProcessHandler::new();
 
+        *consumer.subscribe(&[cfg.get_kafka_staff_topic().as_str()])?;
 
-
-
+        handlerProcess.handle(consumer).await
+    });
 
     Server::builder().add_service(
         StaffServerServiceServer::new(api_server))
         .serve_with_shutdown(service_address.parse()?,async {
        signal_rx.await.ok();
     }).await?;
+
+    let _ = consumer_task.await;
 
    Ok(())
 }

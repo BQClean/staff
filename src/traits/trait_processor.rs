@@ -3,5 +3,5 @@ use rdkafka::consumer::StreamConsumer;
 
 #[async_trait]
 pub trait IMessageProcessor {
-   async fn  handler(consumer: StreamConsumer);
+   async fn  handle(&self, consumer: StreamConsumer);
 }
