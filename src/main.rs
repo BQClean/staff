@@ -73,6 +73,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Server::builder().add_service(
         StaffServerServiceServer::new(api_server))
         .serve_with_shutdown(service_address.parse()?, async {
+
             signal_rx.await.ok();
         }).await?;
 
