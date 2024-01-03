@@ -47,7 +47,7 @@ impl<'a> Default for Config<'a> {
     }
 }
 
-impl<'a> IConfig for Config<'a> {
+impl<'a> IConfig for Config<'a>  {
     fn get_dbconnection(&self) -> String {
         return format!("postgres://{}:{}@{}/{}?currentSchema={}",
                        self.database_username,
