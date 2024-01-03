@@ -1,6 +1,6 @@
 use crate::traits::trait_config::{IConfig};
 
-#[derive(Debug)]
+#[derive(Debug,Clone)]
 pub struct Config<'a> {
     database_host: String,
     database_username: String,
