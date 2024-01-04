@@ -35,14 +35,14 @@ impl<'a> Default for Config<'a> {
             service_host: "127.0.0.1".to_string(),
             service_port: "50021".to_string(),
 
-            kafka_bootstrap_server: "polished-scorpion-11453-us1-message.upstash.io:9092",
+            kafka_bootstrap_server: "polished-scorpion-11453-us1-kafka.upstash.io:9092",
             kafka_ssl_mechanism: "SCRAM-SHA-256",
             kafka_security_protocol: "SASL_SSL",
             kafka_sasl_username: "cG9saXNoZWQtc2NvcnBpb24tMTE0NTMkIitTf9YL3Uuuf_vShTbeEJ6mgfSR-DU",
             kafka_sasl_password: "YzI3NGYxNzQtZDU5ZS00NjliLWJjYTctODRhYzcxMGFjYzAy",
-            kafka_group_id: "staff_worker",
-            kafka_staff_consumer_group:"staff",
-            kafka_staff_topic: "staff_command".to_string(),
+            kafka_group_id: "g1",
+            kafka_staff_consumer_group:"g1",
+            kafka_staff_topic: "demo".to_string(),
         };
     }
 }

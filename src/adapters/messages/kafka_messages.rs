@@ -21,8 +21,11 @@ impl <'a>KafkaMessage<'a>  {
     }
 
     pub(crate) fn create_consumer(&self) -> StreamConsumer {
+
+        let dd=self.cfg.get_kafka_bootstrap_server();
+
         let consumer:StreamConsumer = ClientConfig::new()
-            .set("group.id",self.cfg.get_kafka_staff_consumer_group())
+            .set("group.id",self.cfg.get_kafka_group_id())
             .set("bootstrap.servers",self.cfg.get_kafka_bootstrap_server())
             .set("sasl.mechanism",self.cfg.get_kafka_ssl_mechanism())
             .set("security.protocol",self.cfg.get_kafka_security_protocol())
