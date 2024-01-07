@@ -7,6 +7,7 @@ use tokio::sync::Mutex;
 use tokio_stream::StreamExt;
 
 use crate::traits::trait_processor::{IMessageProcessor};
+use comentities::staff::commands::{CommandsStaff};
 
 pub struct ProcessHandler{}
 impl ProcessHandler{
@@ -21,9 +22,17 @@ impl IMessageProcessor for ProcessHandler{
         let msg = consumer.lock().await;
 
        while let Some(Ok(msg))=msg.stream().next().await{
-            if let Some(Ok(data))=msg.payload_view::<str>(){
-                println!("{:?}",data)
-            }
+           if let Some(Ok(data))=msg.payload_view::<str>(){
+               let deserialized:Result<CommandsStaff,_> = serde_json::from_str(&data);
+               match deserialized {
+                   Ok(cmd)=>{
+
+                   }
+                   Err(e)=>{
+
+                   }
+               }
+           }
        }
     }
 }
